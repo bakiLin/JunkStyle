@@ -31,5 +31,6 @@ public class MovementPlayer : MonoBehaviour
     private void FixedUpdate()
     {
         rb.MovePosition(transform.position + Time.fixedDeltaTime * speed * temp);
+        rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
     }
 }
