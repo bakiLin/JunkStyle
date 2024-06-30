@@ -9,7 +9,7 @@ public class RotationPlayer : MonoBehaviour
     private Vector2 sensitivity;
 
     [SerializeField]
-    private float yLimitMin, yLimitMax;
+    private float yLimitTop, yLimitBottom;
 
     private void Update()
     {
@@ -30,7 +30,7 @@ public class RotationPlayer : MonoBehaviour
         rotation.x -= Input.GetAxis("Mouse Y") * Time.deltaTime * sensitivity.y;
 
         if (rotation.x > 300) rotation.x -= 360f;
-        rotation.x = Mathf.Clamp(rotation.x, yLimitMin, yLimitMax);
+        rotation.x = Mathf.Clamp(rotation.x, yLimitTop, yLimitBottom);
 
         anchor.rotation = Quaternion.Euler(rotation);
     }

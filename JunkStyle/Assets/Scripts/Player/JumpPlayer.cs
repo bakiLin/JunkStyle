@@ -3,32 +3,39 @@ using UnityEngine;
 public class JumpPlayer : MonoBehaviour
 {
     [SerializeField]
+    private LayerMask groundLayer;
+
+    [SerializeField]
     private float groundRayDistance;
 
     [SerializeField]
-    private float jumpForce;
+    private float jumpForce, gravityScale;
 
     private Rigidbody rb;
-    private bool isGrounded;
+    private bool isGrounded, jump;
 
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
+    private void Awake() => rb = GetComponent<Rigidbody>();
 
     private void Update()
     {
-        Ray ray = new Ray(transform.position, Vector3.down);
+        Collider[] colls = Physics.OverlapBox(transform.position + Vector3.down, new Vector3(0.25f, 0.1f, 0.25f), Quaternion.identity, groundLayer);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, groundRayDistance))
-            isGrounded = true;
-        else
-            isGrounded = false;
+        if (colls.Length > 0) isGrounded = true;
+        else isGrounded = false;
 
-        if (isGrounded && Input.GetButtonDown("Jump"))
-        {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        }
+        if (isGrounded && !jump && Input.GetButtonDown("Jump"))
+            jump = true;
     }
 
+    private void FixedUpdate()
+    {
+        if (jump)
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            jump = false;
+        }
+
+        if (!isGrounded)
+            rb.AddForce(Vector3.up * Physics.gravity.y * gravityScale, ForceMode.Acceleration);
+    }
 }
