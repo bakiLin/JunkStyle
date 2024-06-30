@@ -5,40 +5,33 @@ public class MoveWithPlatform : MonoBehaviour
     [SerializeField]
     private LayerMask platform;
 
-    private Rigidbody rb;
     private MovePlatform movePlatform;
-    private MovementPlayer movementPlayer;
     private bool onPlatform;
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-        movementPlayer = GetComponent<MovementPlayer>();
-    }
 
     private void Update()
     {
-        Collider[] colls = Physics.OverlapBox(transform.position + Vector3.down, new Vector3(0.25f, 0.1f, 0.25f), Quaternion.identity, platform);
+        Collider[] colls = Physics.OverlapBox(transform.position + Vector3.down, new Vector3(0.25f, 0.15f, 0.25f), Quaternion.identity, platform);
 
         if (colls.Length > 0) onPlatform = true;
         else onPlatform = false;
 
         foreach (var coll in colls)
-        {
             movePlatform = coll.GetComponent<MovePlatform>();
-        }
 
-        if (colls.Length > 0) onPlatform = true;
-        else onPlatform = false;
+        if (colls.Length > 0)
+            onPlatform = true;
+        else
+        {
+            onPlatform = false;
+            movePlatform = null;
+        }
     }
 
-    private void FixedUpdate()
+    public Vector3 GetPlatformSpeed()
     {
-        if (onPlatform)
-        {
-            //transform.parent = movePlatform.transform;
-            movementPlayer.movement += movePlatform.GetDirectionSpeed();
-            //rb.MovePosition(transform.position + Time.fixedDeltaTime * movePlatform.GetDirectionSpeed());
-        }
+        if (onPlatform && movePlatform != null)
+            return movePlatform.GetDirectionSpeed();
+        else 
+            return Vector3.zero;
     }
 }

@@ -6,13 +6,13 @@ public class MovementPlayer : MonoBehaviour
     private float speed;
 
     private Rigidbody rb;
-
-    [HideInInspector]
-    public Vector3 movement;
+    private Vector3 movement;
+    private MoveWithPlatform moveWithPlatform;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        moveWithPlatform = GetComponent<MoveWithPlatform>();
     }
 
     private void Update()
@@ -30,9 +30,7 @@ public class MovementPlayer : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (movement != Vector3.zero)
-            rb.MovePosition(transform.position + Time.fixedDeltaTime * movement);
-
+        rb.MovePosition(transform.position + Time.fixedDeltaTime * (movement + moveWithPlatform.GetPlatformSpeed()));
         rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
     }
 }

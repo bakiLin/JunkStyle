@@ -36,6 +36,6 @@ public class JumpPlayer : MonoBehaviour
         }
 
         if (!isGrounded)
-            rb.AddForce(Vector3.up * Physics.gravity.y * gravityScale, ForceMode.Acceleration);
+            rb.AddForce(gravityScale * Physics.gravity.y * Vector3.up, ForceMode.Acceleration);
     }
 }

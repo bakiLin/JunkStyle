@@ -12,15 +12,9 @@ public class MovePlatform : MonoBehaviour
     private Rigidbody rb;
     private int pointCounter;
 
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
+    private void Awake() => rb = GetComponent<Rigidbody>();
 
-    private void Start()
-    {
-        StartCoroutine(MoveCoroutine());
-    }
+    private void Start() => StartCoroutine(MoveCoroutine());
 
     private IEnumerator MoveCoroutine()
     {
@@ -33,13 +27,7 @@ public class MovePlatform : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
-    {
-        rb.MovePosition(transform.position + Time.fixedDeltaTime * vectorSpeed[pointCounter]);
-    }
+    private void FixedUpdate() => rb.MovePosition(transform.position + Time.fixedDeltaTime * GetDirectionSpeed());
 
-    public Vector3 GetDirectionSpeed()
-    {
-        return vectorSpeed[pointCounter];
-    }
+    public Vector3 GetDirectionSpeed() => vectorSpeed[pointCounter];
 }
