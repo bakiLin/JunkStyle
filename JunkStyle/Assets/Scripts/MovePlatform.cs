@@ -1,36 +1,45 @@
 using UnityEngine;
-using DG.Tweening;
+using System.Collections;
 
 public class MovePlatform : MonoBehaviour
 {
     [SerializeField]
-    private Vector3[] movePoints;
+    private float moveTime;
 
     [SerializeField]
-    private float speed;
+    private Vector3[] vectorSpeed;
 
-    private Tween tween;
-    private int pointCounter = 1;
+    private Rigidbody rb;
+    private int pointCounter;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 
     private void Start()
     {
-        Move();
+        StartCoroutine(MoveCoroutine());
     }
 
-    private void Move()
+    private IEnumerator MoveCoroutine()
     {
-        //if (pointCounter >= movePoints.Length) pointCounter = 0;
-        //else pointCounter++;
+        while (true)
+        {
+            yield return new WaitForSeconds(moveTime);
 
-        tween.Kill();
-        tween = transform.DOMove(movePoints[pointCounter], speed)
-            .SetSpeedBased()
-            .SetEase(Ease.Linear)
-            .OnComplete(() =>
-            {
-                if (pointCounter >= movePoints.Length) pointCounter = 0;
-                else pointCounter++;
-            })
-            .SetLoops(-1);
+            if (pointCounter == vectorSpeed.Length - 1) pointCounter = 0;
+            else pointCounter++;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        rb.MovePosition(transform.position + Time.fixedDeltaTime * vectorSpeed[pointCounter]);
+    }
+
+    public Vector3 GetDirectionSpeed()
+    {
+        return vectorSpeed[pointCounter];
     }
 }

@@ -6,9 +6,9 @@ public class MovementPlayer : MonoBehaviour
     private float speed;
 
     private Rigidbody rb;
-    private float movement;
 
-    private Vector3 temp;
+    [HideInInspector]
+    public Vector3 movement;
 
     private void Awake()
     {
@@ -24,13 +24,15 @@ public class MovementPlayer : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, 0.7f) && Input.GetAxisRaw("Vertical") > 0)
             forward = Vector3.zero;
 
-        temp = (forward + right).normalized;
-        temp.y = 0f;
+        movement = (forward + right).normalized * speed;
+        movement.y = 0f;
     }
 
     private void FixedUpdate()
     {
-        rb.MovePosition(transform.position + Time.fixedDeltaTime * speed * temp);
+        if (movement != Vector3.zero)
+            rb.MovePosition(transform.position + Time.fixedDeltaTime * movement);
+
         rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
     }
 }

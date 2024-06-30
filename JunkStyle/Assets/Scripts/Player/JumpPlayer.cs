@@ -3,7 +3,7 @@ using UnityEngine;
 public class JumpPlayer : MonoBehaviour
 {
     [SerializeField]
-    private LayerMask groundLayer;
+    private LayerMask jumpSurface;
 
     [SerializeField]
     private float groundRayDistance;
@@ -18,7 +18,7 @@ public class JumpPlayer : MonoBehaviour
 
     private void Update()
     {
-        Collider[] colls = Physics.OverlapBox(transform.position + Vector3.down, new Vector3(0.25f, 0.1f, 0.25f), Quaternion.identity, groundLayer);
+        Collider[] colls = Physics.OverlapBox(transform.position + Vector3.down, new Vector3(0.25f, 0.1f, 0.25f), Quaternion.identity, jumpSurface);
 
         if (colls.Length > 0) isGrounded = true;
         else isGrounded = false;

@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 1643308746}
   - component: {fileID: 1643308750}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -333,10 +333,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c46c2aa2ef744934bb4e53908363cf9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 2
   movePoints:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 3}
-  speed: 2
+  - {x: 0, y: 3, z: 3}
+  - {x: 0, y: 3, z: 0}
 --- !u!1 &1789752324
 GameObject:
   m_ObjectHideFlags: 0
