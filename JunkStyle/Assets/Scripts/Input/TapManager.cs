@@ -8,12 +8,12 @@ public class TapManager : MonoBehaviour
     public void Raycast(Vector2 position)
     {
         Ray ray = Camera.main.ScreenPointToRay(position);
-        RaycastHit hit;
+        RaycastHit[] hit = Physics.RaycastAll(ray, 10f);
 
-        if (Physics.Raycast(ray, out hit, 10f))
+        foreach (var h in hit)
         {
-            Button button = hit.collider.GetComponent<Button>();
-            if (button) button.ChangeState();
+            if (h.collider.GetComponent<Button>()) h.collider.GetComponent<Button>().ChangeState();
+            if (h.collider.CompareTag("Computer")) h.collider.GetComponent<LevelManager>().LoadNext();
         }
     }
 }

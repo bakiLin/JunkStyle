@@ -18,10 +18,9 @@ public class PlayerRotation : MonoBehaviour
     private void Rotate()
     {
         rotation = transform.rotation.eulerAngles;
-        rotation += new Vector3(-input.delta.y, input.delta.x, transform.position.z) * Time.deltaTime * speed;
+        rotation += new Vector3(-input.delta.y, input.delta.x, 0f) * Time.deltaTime * speed;
         if (rotation.x > 50f && rotation.x < 290f) rotation.x = 50f;
         else if (rotation.x < 310f && rotation.x > 50f) rotation.x = 310f;
-        rotation.z = 0f;
         transform.rotation = Quaternion.Euler(rotation);
     }
 }
