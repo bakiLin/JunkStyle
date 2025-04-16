@@ -20,14 +20,15 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Movement();
     }
 
     public void Movement()
     {
-        velocity = playerInput.direction.x * pivot.right * speed + playerInput.direction.y * pivot.forward * speed;
+        velocity = playerInput.direction.x * pivot.right + playerInput.direction.y * pivot.forward;
+        velocity *= speed;
         velocity.y = rb.velocity.y;
         rb.velocity = velocity; 
     }
