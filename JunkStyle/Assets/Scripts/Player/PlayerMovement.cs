@@ -30,6 +30,6 @@ public class PlayerMovement : MonoBehaviour
         velocity = playerInput.direction.x * pivot.right + playerInput.direction.y * pivot.forward;
         velocity *= speed;
         velocity.y = rb.velocity.y;
-        rb.velocity = velocity; 
+        rb.velocity = velocity;
     }
 }
