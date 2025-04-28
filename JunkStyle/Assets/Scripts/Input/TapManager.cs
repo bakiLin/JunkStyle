@@ -5,15 +5,18 @@ public class TapManager : MonoBehaviour
     [SerializeField]
     private PlayerInput playerInput;
 
-    public void Raycast(Vector2 position)
-    {
-        Ray ray = Camera.main.ScreenPointToRay(position);
-        RaycastHit[] hit = Physics.RaycastAll(ray, 10f);
+    private RaycastHit hit;
 
-        foreach (var h in hit)
+    public void Raycast()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2, Screen.height / 2));
+
+        if (Physics.Raycast(ray, out hit, 10f))
         {
-            if (h.collider.GetComponent<Button>()) h.collider.GetComponent<Button>().ChangeState();
-            if (h.collider.CompareTag("Computer")) h.collider.GetComponent<LevelManager>().LoadNext();
+            if (hit.collider.GetComponent<Button>() != null) 
+                hit.collider.GetComponent<Button>().ChangeState();
+            else if (hit.collider.GetComponent<LevelManager>() != null) 
+                hit.collider.GetComponent<LevelManager>().LoadNext();
         }
     }
 }

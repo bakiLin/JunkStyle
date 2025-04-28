@@ -11,11 +11,13 @@ public class LevelManager : MonoBehaviour
     public void LoadNext()
     {
         int currentScene = SceneManager.GetActiveScene().buildIndex;
-        if (currentScene + 1 == SceneManager.sceneCount) currentScene = 0;
 
         blackout.DOFade(1f, 1f).OnComplete(() =>
         {
-            SceneManager.LoadScene(currentScene + 1);
+            if (currentScene == 2)
+                SceneManager.LoadScene(0);
+            else
+                SceneManager.LoadScene(currentScene + 1);
         });
     }
 }

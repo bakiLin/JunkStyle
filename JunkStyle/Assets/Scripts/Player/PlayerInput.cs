@@ -14,7 +14,7 @@ public class PlayerInput : MonoBehaviour
 
     private KeyboardInput keyboardInput;
 
-    private InputAction jumpAction, moveAction, pressAction, positionAction, deltaAction;
+    private InputAction jumpAction, moveAction, pressAction, deltaAction;
 
     public Vector2 direction { get; private set; }
 
@@ -34,18 +34,31 @@ public class PlayerInput : MonoBehaviour
         jumpAction = keyboardInput.Keyboard.Jump;
         moveAction = keyboardInput.Keyboard.Movement;
         pressAction = keyboardInput.Keyboard.Press;
-        positionAction = keyboardInput.Keyboard.Position;
         deltaAction = keyboardInput.Keyboard.Delta;
 
-        jumpAction.started += (InputAction.CallbackContext context) => playerJump.Jump();
-        pressAction.started += (InputAction.CallbackContext context) 
-            => tapManager.Raycast(positionAction.ReadValue<Vector2>());
+        jumpAction.started += Jump;
+        pressAction.started += Raycast;
+    }
+
+    private void OnDisable()
+    {
+        jumpAction.started -= Jump;
+        pressAction.started -= Raycast;
+    }
+
+    private void Jump(InputAction.CallbackContext context)
+    {
+        playerJump.Jump();
+    }
+
+    private void Raycast(InputAction.CallbackContext context)
+    {
+        tapManager.Raycast();
     }
 
     private void Update()
     {
         direction = moveAction.ReadValue<Vector2>();
-        position = positionAction.ReadValue<Vector2>();
         delta = deltaAction.ReadValue<Vector2>();
     }
 }

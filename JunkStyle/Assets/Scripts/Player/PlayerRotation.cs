@@ -10,6 +10,12 @@ public class PlayerRotation : MonoBehaviour
 
     private Vector3 rotation;
 
+    private void Start()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     private void Update()
     {
         Rotate();

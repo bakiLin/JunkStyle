@@ -20,6 +20,12 @@ public class OrWire : MonoBehaviour
     [SerializeField]
     private TvWire tvWire;
 
+    [SerializeField]
+    private OrWire orWire;
+
+    [SerializeField]
+    private int orWireIndex;
+
     private bool inputOne, inputTwo;
 
     public void TurnOn(int index)
@@ -33,6 +39,7 @@ public class OrWire : MonoBehaviour
             if (andWire != null) andWire.TurnOn(andWireIndex);
             if (notWire != null) notWire.TurnOff();
             if (tvWire != null) tvWire.TurnOn();
+            if (orWire != null) orWire.TurnOn(orWireIndex);
         }
     }
 
@@ -47,6 +54,7 @@ public class OrWire : MonoBehaviour
             if (andWire != null) andWire.TurnOff(andWireIndex);
             if (notWire != null) notWire.TurnOn();
             if (tvWire != null) tvWire.TurnOff();
+            if (orWire != null) orWire.TurnOff(orWireIndex);
         }
     }
 }
