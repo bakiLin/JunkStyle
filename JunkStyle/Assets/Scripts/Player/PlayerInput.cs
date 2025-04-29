@@ -12,9 +12,12 @@ public class PlayerInput : MonoBehaviour
     [SerializeField]
     private TapManager tapManager;
 
+    [SerializeField]
+    private PauseManager pauseManager;
+
     private KeyboardInput keyboardInput;
 
-    private InputAction jumpAction, moveAction, pressAction, deltaAction;
+    private InputAction jumpAction, moveAction, pressAction, deltaAction, escAction;
 
     public Vector2 direction { get; private set; }
 
@@ -35,15 +38,18 @@ public class PlayerInput : MonoBehaviour
         moveAction = keyboardInput.Keyboard.Movement;
         pressAction = keyboardInput.Keyboard.Press;
         deltaAction = keyboardInput.Keyboard.Delta;
+        escAction = keyboardInput.Keyboard.Esc;
 
         jumpAction.started += Jump;
         pressAction.started += Raycast;
+        escAction.started += Pause;
     }
 
     private void OnDisable()
     {
         jumpAction.started -= Jump;
         pressAction.started -= Raycast;
+        escAction.started -= Pause;
     }
 
     private void Jump(InputAction.CallbackContext context)
@@ -54,6 +60,11 @@ public class PlayerInput : MonoBehaviour
     private void Raycast(InputAction.CallbackContext context)
     {
         tapManager.Raycast();
+    }
+
+    private void Pause(InputAction.CallbackContext context)
+    {
+        pauseManager.Pause();
     }
 
     private void Update()

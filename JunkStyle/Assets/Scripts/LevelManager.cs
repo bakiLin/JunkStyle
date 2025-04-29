@@ -12,12 +12,22 @@ public class LevelManager : MonoBehaviour
     {
         int currentScene = SceneManager.GetActiveScene().buildIndex;
 
-        blackout.DOFade(1f, 1f).OnComplete(() =>
-        {
-            if (currentScene == 2)
+        blackout.DOFade(1f, 1f).OnComplete(() => {
+            if (currentScene == 3)
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
                 SceneManager.LoadScene(0);
+            }
             else
                 SceneManager.LoadScene(currentScene + 1);
+        });
+    }
+
+    public void LoadLevel(int index)
+    {
+        blackout.DOFade(1f, 1f).OnComplete(() => {
+            SceneManager.LoadScene(index);
         });
     }
 }
