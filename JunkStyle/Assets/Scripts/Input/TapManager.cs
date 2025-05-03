@@ -1,10 +1,11 @@
 using UnityEngine;
+using Zenject;
 
 public class TapManager : MonoBehaviour
 {
-    [SerializeField]
-    private PlayerInput playerInput;
-
+    [Inject]
+    private LevelManager levelManager;
+    
     private RaycastHit hit;
 
     private bool isPaused;
@@ -17,16 +18,13 @@ public class TapManager : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, 10f))
             {
-                if (hit.collider.GetComponent<Button>() != null)
+                if (hit.collider.CompareTag("Button"))
                     hit.collider.GetComponent<Button>().ChangeState();
-                else if (hit.collider.GetComponent<LevelManager>() != null)
-                    hit.collider.GetComponent<LevelManager>().LoadNext();
+                else if (hit.collider.CompareTag("Computer"))
+                    levelManager.NextLevel();
             }
         }
     }
 
-    public void StopRaycast(bool state)
-    {
-        isPaused = state;
-    }
+    public void StopRaycast(bool state) => isPaused = state;
 }

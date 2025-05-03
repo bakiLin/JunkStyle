@@ -3,16 +3,16 @@ using UnityEngine;
 public class PlatformLogic : MonoBehaviour
 {
     [SerializeField]
-    protected Platform[] platforms;
+    protected int buttonNumber;
 
     [SerializeField]
-    protected Button[] buttons;
+    protected Platform[] platforms;
 
     protected bool[] state;
 
     protected void Start()
     {
-        state = new bool[buttons.Length];
+        state = new bool[buttonNumber];
         MovePlatform();
     }
 

@@ -3,16 +3,16 @@ using UnityEngine;
 public class Button : MonoBehaviour
 {
     [SerializeField]
-    private bool state;
-
-    [SerializeField]
     private int index;
 
     [SerializeField]
-    private Vector3 falseRotation, trueRotation;
-
-    [SerializeField]
     private PlatformLogic platformLogic;
+
+    private bool state;
+
+    private Vector3 falseRotation = new Vector3(0f, 180f, 0f);
+
+    private Vector3 trueRotation = new Vector3(0f, 180f, 340f);
 
     private ButtonWire buttonWire;
 
@@ -26,8 +26,7 @@ public class Button : MonoBehaviour
 
     private void Start()
     {
-        if (!state) button.rotation = Quaternion.Euler(falseRotation);
-        else button.rotation = Quaternion.Euler(trueRotation);
+        button.rotation = Quaternion.Euler(falseRotation);
     }
 
     public void ChangeState()

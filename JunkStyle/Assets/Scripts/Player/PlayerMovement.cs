@@ -1,8 +1,9 @@
 using UnityEngine;
+using Zenject;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]
+    [Inject]
     private PlayerInput playerInput;
 
     [SerializeField]

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8566949202081079790}
   - component: {fileID: 6513900692360565657}
-  - component: {fileID: 1121274336827327903}
   m_Layer: 0
   m_Name: Button
   m_TagString: Computer
@@ -54,19 +53,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1121274336827327903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4365982390988791529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 235c5f998a440584ca49d2b4332daab3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blackout: {fileID: 0}
 --- !u!1 &5944189906404886184
 GameObject:
   m_ObjectHideFlags: 0
