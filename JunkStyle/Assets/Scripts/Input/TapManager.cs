@@ -1,19 +1,30 @@
 using UnityEngine;
+using Zenject;
 
 public class TapManager : MonoBehaviour
 {
-    [SerializeField]
-    private PlayerInput playerInput;
+    [Inject]
+    private LevelManager levelManager;
+    
+    private RaycastHit hit;
 
-    public void Raycast(Vector2 position)
+    private bool isPaused;
+
+    public void Raycast()
     {
-        Ray ray = Camera.main.ScreenPointToRay(position);
-        RaycastHit[] hit = Physics.RaycastAll(ray, 10f);
-
-        foreach (var h in hit)
+        if (!isPaused)
         {
-            if (h.collider.GetComponent<Button>()) h.collider.GetComponent<Button>().ChangeState();
-            if (h.collider.CompareTag("Computer")) h.collider.GetComponent<LevelManager>().LoadNext();
+            Ray ray = Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2, Screen.height / 2));
+
+            if (Physics.Raycast(ray, out hit, 10f))
+            {
+                if (hit.collider.CompareTag("Button"))
+                    hit.collider.GetComponent<Button>().ChangeState();
+                else if (hit.collider.CompareTag("Computer"))
+                    levelManager.NextLevel();
+            }
         }
     }
+
+    public void StopRaycast(bool state) => isPaused = state;
 }

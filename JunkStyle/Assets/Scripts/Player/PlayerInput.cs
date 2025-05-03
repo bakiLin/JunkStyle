@@ -1,24 +1,21 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
 
 public class PlayerInput : MonoBehaviour
 {
-    [SerializeField]
+    [Inject]
     private PlayerJump playerJump;
 
-    [SerializeField]
-    private PlayerMovement playerMovement;
-
-    [SerializeField]
+    [Inject]
     private TapManager tapManager;
+
+    [Inject]
+    private PauseManager pauseManager;
 
     private KeyboardInput keyboardInput;
 
-    private InputAction jumpAction, moveAction, pressAction, positionAction, deltaAction;
-
     public Vector2 direction { get; private set; }
-
-    public Vector2 position { get; private set; }
 
     public Vector2 delta { get; private set; }
 
@@ -30,22 +27,28 @@ public class PlayerInput : MonoBehaviour
     private void OnEnable()
     {
         keyboardInput.Enable();
-        
-        jumpAction = keyboardInput.Keyboard.Jump;
-        moveAction = keyboardInput.Keyboard.Movement;
-        pressAction = keyboardInput.Keyboard.Press;
-        positionAction = keyboardInput.Keyboard.Position;
-        deltaAction = keyboardInput.Keyboard.Delta;
 
-        jumpAction.started += (InputAction.CallbackContext context) => playerJump.Jump();
-        pressAction.started += (InputAction.CallbackContext context) 
-            => tapManager.Raycast(positionAction.ReadValue<Vector2>());
+        keyboardInput.Keyboard.Jump.started += Jump;
+        keyboardInput.Keyboard.Press.started += Raycast;
+        keyboardInput.Keyboard.Esc.started += Pause;
+    }
+
+    private void OnDisable()
+    {
+        keyboardInput.Keyboard.Jump.started -= Jump;
+        keyboardInput.Keyboard.Press.started -= Raycast;
+        keyboardInput.Keyboard.Esc.started -= Pause;
     }
 
     private void Update()
     {
-        direction = moveAction.ReadValue<Vector2>();
-        position = positionAction.ReadValue<Vector2>();
-        delta = deltaAction.ReadValue<Vector2>();
+        direction = keyboardInput.Keyboard.Movement.ReadValue<Vector2>();
+        delta = keyboardInput.Keyboard.Delta.ReadValue<Vector2>();
     }
+
+    private void Jump(InputAction.CallbackContext context) => playerJump.Jump();
+
+    private void Raycast(InputAction.CallbackContext context) => tapManager.Raycast();
+
+    private void Pause(InputAction.CallbackContext context) => pauseManager.Pause();
 }

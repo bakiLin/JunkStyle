@@ -10,13 +10,7 @@ public class SpawnManager : MonoBehaviour
 
     private int index;
 
-    public void Respawn()
-    {
-        player.position = spawnPoints[index].position;
-    }
+    public void Respawn() => player.position = spawnPoints[index].position;
 
-    public void SpawnPoint()
-    {
-        index++;
-    }
+    public void SpawnPoint() => index++;
 }

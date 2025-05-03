@@ -71,6 +71,15 @@ public partial class @KeyboardInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Esc"",
+                    ""type"": ""Button"",
+                    ""id"": ""18cbae7c-1f63-4ef7-858e-bc3dc40a85ae"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -172,6 +181,17 @@ public partial class @KeyboardInput: IInputActionCollection2, IDisposable
                     ""action"": ""Delta"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5336718d-7fc1-42e6-b7c9-8ae7f4211640"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Esc"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -185,6 +205,7 @@ public partial class @KeyboardInput: IInputActionCollection2, IDisposable
         m_Keyboard_Press = m_Keyboard.FindAction("Press", throwIfNotFound: true);
         m_Keyboard_Position = m_Keyboard.FindAction("Position", throwIfNotFound: true);
         m_Keyboard_Delta = m_Keyboard.FindAction("Delta", throwIfNotFound: true);
+        m_Keyboard_Esc = m_Keyboard.FindAction("Esc", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -251,6 +272,7 @@ public partial class @KeyboardInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Keyboard_Press;
     private readonly InputAction m_Keyboard_Position;
     private readonly InputAction m_Keyboard_Delta;
+    private readonly InputAction m_Keyboard_Esc;
     public struct KeyboardActions
     {
         private @KeyboardInput m_Wrapper;
@@ -260,6 +282,7 @@ public partial class @KeyboardInput: IInputActionCollection2, IDisposable
         public InputAction @Press => m_Wrapper.m_Keyboard_Press;
         public InputAction @Position => m_Wrapper.m_Keyboard_Position;
         public InputAction @Delta => m_Wrapper.m_Keyboard_Delta;
+        public InputAction @Esc => m_Wrapper.m_Keyboard_Esc;
         public InputActionMap Get() { return m_Wrapper.m_Keyboard; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -284,6 +307,9 @@ public partial class @KeyboardInput: IInputActionCollection2, IDisposable
             @Delta.started += instance.OnDelta;
             @Delta.performed += instance.OnDelta;
             @Delta.canceled += instance.OnDelta;
+            @Esc.started += instance.OnEsc;
+            @Esc.performed += instance.OnEsc;
+            @Esc.canceled += instance.OnEsc;
         }
 
         private void UnregisterCallbacks(IKeyboardActions instance)
@@ -303,6 +329,9 @@ public partial class @KeyboardInput: IInputActionCollection2, IDisposable
             @Delta.started -= instance.OnDelta;
             @Delta.performed -= instance.OnDelta;
             @Delta.canceled -= instance.OnDelta;
+            @Esc.started -= instance.OnEsc;
+            @Esc.performed -= instance.OnEsc;
+            @Esc.canceled -= instance.OnEsc;
         }
 
         public void RemoveCallbacks(IKeyboardActions instance)
@@ -327,5 +356,6 @@ public partial class @KeyboardInput: IInputActionCollection2, IDisposable
         void OnPress(InputAction.CallbackContext context);
         void OnPosition(InputAction.CallbackContext context);
         void OnDelta(InputAction.CallbackContext context);
+        void OnEsc(InputAction.CallbackContext context);
     }
 }

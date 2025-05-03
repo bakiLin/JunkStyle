@@ -3,16 +3,17 @@ using UnityEngine;
 public class PlayerJump : MonoBehaviour
 {
     [SerializeField]
-    private PlayerGround playerGround;
-
-    [SerializeField]
     private float jumpForce, gravityScale;
+
+    private PlayerGround playerGround;
 
     private Rigidbody rb;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        playerGround = GetComponent<PlayerGround>();
+
         Physics.gravity = new Vector3(0f, gravityScale, 0f);
     }
 
@@ -20,8 +21,7 @@ public class PlayerJump : MonoBehaviour
     {
         if (playerGround.IsGrounded())
         {
-            Vector3 velocity = rb.velocity;
-            velocity.y = jumpForce;
+            Vector3 velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
             rb.velocity = velocity;
         }
     }

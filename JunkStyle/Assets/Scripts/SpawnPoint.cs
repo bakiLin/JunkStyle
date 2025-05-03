@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using Zenject;
 
 public class SpawnPoint : MonoBehaviour
 {
-    [SerializeField]
+    [Inject]
     private SpawnManager spawnManager;
 
     private bool touch;

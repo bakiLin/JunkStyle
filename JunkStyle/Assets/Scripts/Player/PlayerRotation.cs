@@ -1,26 +1,29 @@
 using UnityEngine;
+using Zenject;
 
 public class PlayerRotation : MonoBehaviour
 {
-    [SerializeField]
+    [Inject]
     private PlayerInput input;
+
+    [Inject]
+    private CursorManager cursorManager;
 
     [SerializeField]
     private float speed;
 
     private Vector3 rotation;
 
-    private void Update()
-    {
-        Rotate();
-    }
+    private void Start() => cursorManager.Lock();
+
+    private void Update() => Rotate();
 
     private void Rotate()
     {
-        rotation = transform.rotation.eulerAngles;
-        rotation += new Vector3(-input.delta.y, input.delta.x, 0f) * Time.deltaTime * speed;
+        rotation = transform.localRotation.eulerAngles;
+        rotation += new Vector3(-input.delta.y, input.delta.x) * Time.deltaTime * speed;
         if (rotation.x > 50f && rotation.x < 290f) rotation.x = 50f;
         else if (rotation.x < 310f && rotation.x > 50f) rotation.x = 310f;
-        transform.rotation = Quaternion.Euler(rotation);
+        transform.localRotation = Quaternion.Euler(rotation);
     }
 }

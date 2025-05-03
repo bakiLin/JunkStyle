@@ -1,8 +1,9 @@
 using UnityEngine;
+using Zenject;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]
+    [Inject]
     private PlayerInput playerInput;
 
     [SerializeField]
@@ -21,11 +22,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void FixedUpdate()
-    {
-        Movement();
-    }
-
-    public void Movement()
     {
         velocity = playerInput.direction.x * pivot.right + playerInput.direction.y * pivot.forward;
         velocity *= speed;
