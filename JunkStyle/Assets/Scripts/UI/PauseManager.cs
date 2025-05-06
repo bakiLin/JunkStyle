@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 public class PauseManager : MonoBehaviour
@@ -13,6 +14,14 @@ public class PauseManager : MonoBehaviour
     private GameObject pauseWindow;
 
     private bool isPaused;
+
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            Pause();
+        }
+    }
 
     public void Pause()
     {

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 public class PlayerRotation : MonoBehaviour
@@ -14,7 +15,13 @@ public class PlayerRotation : MonoBehaviour
 
     private Vector3 rotation;
 
-    private void Start() => cursorManager.Lock();
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().buildIndex != 1)
+        {
+            cursorManager.Lock();
+        }
+    }
 
     private void Update() => Rotate();
 

@@ -14,7 +14,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        blackoutImage.DOFade(0f, 1f);
+        blackoutImage.DOFade(0f, 1f).SetUpdate(true);
     }
 
     public void NextLevel()
@@ -33,7 +33,8 @@ public class LevelManager : MonoBehaviour
     public void LoadLevel(int index)
     {
         blackoutImage.DOFade(1f, 1f).OnComplete(() => {
+            Time.timeScale = 1f;
             SceneManager.LoadScene(index);
-        });
+        }).SetUpdate(true);
     }
 }

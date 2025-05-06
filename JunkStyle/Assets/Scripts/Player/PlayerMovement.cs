@@ -27,5 +27,9 @@ public class PlayerMovement : MonoBehaviour
         velocity *= speed;
         velocity.y = rb.velocity.y;
         rb.velocity = velocity;
+
+        #if UNITY_EDITOR
+            print(velocity);
+        #endif
     }
 }
