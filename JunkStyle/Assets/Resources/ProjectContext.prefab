@@ -153,3 +153,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 633e49d4af0ddee49ac923c5f1827281, type: 2}
+  sounds:
+  - Name: menu
+    Clip: {fileID: 8300000, guid: 618f833d2414eea4dbb2f2e31172b139, type: 3}
+    Output: {fileID: 24300002, guid: 633e49d4af0ddee49ac923c5f1827281, type: 2}
+    Volume: 0.3
+    Loop: 1
+    Source: {fileID: 0}
+  - Name: theme
+    Clip: {fileID: 8300000, guid: 287daaec4c8748b40bf2d2f2b6ca8040, type: 3}
+    Output: {fileID: 24300002, guid: 633e49d4af0ddee49ac923c5f1827281, type: 2}
+    Volume: 0.3
+    Loop: 1
+    Source: {fileID: 0}
+  - Name: revive
+    Clip: {fileID: 8300000, guid: ea4927ea1f38e9e48ba0554573d7cad7, type: 3}
+    Output: {fileID: 24300002, guid: 633e49d4af0ddee49ac923c5f1827281, type: 2}
+    Volume: 1
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: jump
+    Clip: {fileID: 8300000, guid: 5e30d602ed537454cb474b9ea7b0519b, type: 3}
+    Output: {fileID: 24300002, guid: 633e49d4af0ddee49ac923c5f1827281, type: 2}
+    Volume: 0.6
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: killfloor
+    Clip: {fileID: 8300000, guid: c57afe3d5849a3f4f94a56459c9e29c1, type: 3}
+    Output: {fileID: 24300002, guid: 633e49d4af0ddee49ac923c5f1827281, type: 2}
+    Volume: 1
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: button
+    Clip: {fileID: 8300000, guid: 168d2ce8e1c1f234db1b9b0c551d3a50, type: 3}
+    Output: {fileID: 24300002, guid: 633e49d4af0ddee49ac923c5f1827281, type: 2}
+    Volume: 1
+    Loop: 0
+    Source: {fileID: 0}
+  - Name: click
+    Clip: {fileID: 8300000, guid: 5879528dea4fa3c44863103f3d9318a8, type: 3}
+    Output: {fileID: 24300002, guid: 633e49d4af0ddee49ac923c5f1827281, type: 2}
+    Volume: 1
+    Loop: 0
+    Source: {fileID: 0}

@@ -37,4 +37,9 @@ public class LevelManager : MonoBehaviour
             SceneManager.LoadScene(index);
         }).SetUpdate(true);
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }

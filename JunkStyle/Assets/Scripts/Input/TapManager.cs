@@ -5,6 +5,9 @@ public class TapManager : MonoBehaviour
 {
     [Inject]
     private LevelManager levelManager;
+
+    [Inject]
+    private AudioManager audioManager;
     
     private RaycastHit hit;
 
@@ -19,9 +22,15 @@ public class TapManager : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 10f))
             {
                 if (hit.collider.CompareTag("Button"))
+                {
+                    audioManager.Play("button", .3f);
                     hit.collider.GetComponent<Button>().ChangeState();
+                }
                 else if (hit.collider.CompareTag("Computer"))
+                {
+                    audioManager.Play("revive", .1f);
                     levelManager.NextLevel();
+                }
             }
         }
     }
