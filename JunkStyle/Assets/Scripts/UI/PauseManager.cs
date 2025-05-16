@@ -16,62 +16,58 @@ public class PauseManager : MonoBehaviour
     [SerializeField]
     private GameObject pauseWindow;
 
-    private bool isPaused;
-
-    public bool canPause;
+    private bool noPause, isPaused;
 
     private void Start()
     {
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            canPause = false;
-            isPaused = true;
+            noPause = true;
             tapManager.StopRaycast(true);
             cursorManager.Unlock();
             Time.timeScale = 0f;
         }
     }
 
-    public void SkipInstruction()
-    {
-        audioManager.Stop("menu");
-        audioManager.Play("theme", 0f);
-
-        canPause = true;
-        isPaused = false;
-        tapManager.StopRaycast(false);
-        cursorManager.Lock();
-        Time.timeScale = 1f;
-    }
+    private void OnDestroy() => Time.timeScale = 1f;
 
     public void Pause()
     {
-        if (canPause)
+        if (!noPause)
         {
-            print("pause");
+            if (!isPaused) PauseState(true);
+            else PauseState(false);
+        }
+    }
 
-            if (!isPaused)
-            {
-                audioManager.Stop("theme");
-                audioManager.Play("menu", 0f);
+    public void SkipInstruction()
+    {
+        noPause = false;
+        PauseState(false);
+    }
 
-                isPaused = true;
-                tapManager.StopRaycast(true);
-                pauseWindow.SetActive(true);
-                cursorManager.Unlock();
-                Time.timeScale = 0f;
-            }
-            else
-            {
-                audioManager.Stop("menu");
-                audioManager.Play("theme", 0f);
+    public void NoPause(bool state) => noPause = state;
 
-                isPaused = false;
-                tapManager.StopRaycast(false);
-                pauseWindow.SetActive(false);
-                cursorManager.Lock();
-                Time.timeScale = 1f;
-            }
+    private void PauseState(bool state)
+    {
+        isPaused = state;
+        tapManager.StopRaycast(state);
+
+        if (state)
+        {
+            audioManager.Stop("theme");
+            audioManager.Play("menu", 0f);
+            pauseWindow.SetActive(true);
+            cursorManager.Unlock();
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            audioManager.Stop("menu");
+            audioManager.Play("theme", 0f);
+            pauseWindow.SetActive(false);
+            cursorManager.Lock();
+            Time.timeScale = 1f;
         }
     }
 }
