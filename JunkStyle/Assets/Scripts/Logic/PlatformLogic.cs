@@ -35,6 +35,18 @@ public class PlatformLogic : MonoBehaviour
             case 2:
                 Two(); 
                 break;
+            case 3:
+                Three();
+                break;
+            case 4:
+                Four();
+                break;
+            case 5:
+                Five();
+                break;
+            case 6:
+                Six();
+                break;
         }
     }
 
