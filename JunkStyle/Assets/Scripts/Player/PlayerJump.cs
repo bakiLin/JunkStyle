@@ -1,7 +1,11 @@
 using UnityEngine;
+using Zenject;
 
 public class PlayerJump : MonoBehaviour
 {
+    [Inject]
+    private AudioManager audioManager;
+
     [SerializeField]
     private float jumpForce, gravityScale;
 
@@ -19,8 +23,9 @@ public class PlayerJump : MonoBehaviour
 
     public void Jump()
     {
-        if (playerGround.IsGrounded())
+        if (playerGround.IsGrounded() && Time.timeScale == 1f)
         {
+            audioManager.Play("jump", .15f);
             Vector3 velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
             rb.velocity = velocity;
         }

@@ -1,27 +1,31 @@
 using UnityEngine;
+using Zenject;
 
 public class Button : MonoBehaviour
 {
+    [Inject]
+    private AudioManager audioManager;
+
     [SerializeField]
     private int index;
 
     [SerializeField]
     private PlatformLogic platformLogic;
 
-    private bool state;
-
     private Vector3 falseRotation = new Vector3(0f, 180f, 0f);
 
     private Vector3 trueRotation = new Vector3(0f, 180f, 340f);
 
-    private ButtonWire buttonWire;
+    private WireManager wireManager;
 
     private Transform button;
+
+    private bool state;
 
     private void Awake()
     {
         button = transform.GetChild(0);
-        buttonWire = GetComponent<ButtonWire>();
+        wireManager = GetComponent<WireManager>();
     }
 
     private void Start()
@@ -31,17 +35,20 @@ public class Button : MonoBehaviour
 
     public void ChangeState()
     {
+        audioManager.Play("button", .3f);
         state = !state;
+
         if (!state)
         {
             button.rotation = Quaternion.Euler(falseRotation);
-            buttonWire.TurnOff();
+            wireManager.TurnOff(0);
         }
         else
         {
             button.rotation = Quaternion.Euler(trueRotation);
-            buttonWire.TurnOn();
+            wireManager.TurnOn(0);
         }
+
         platformLogic.ChangeState(index);
     }
 }

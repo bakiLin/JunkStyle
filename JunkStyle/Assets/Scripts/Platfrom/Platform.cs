@@ -6,10 +6,10 @@ public class Platform : MonoBehaviour
     protected bool vertical;
 
     [SerializeField]
-    protected Transform pointOne, pointTwo;
+    protected float speed;
 
     [SerializeField]
-    protected float speed;
+    protected Transform pointOne, pointTwo;
 
     protected Vector3 prevPoint, nextPoint;
 

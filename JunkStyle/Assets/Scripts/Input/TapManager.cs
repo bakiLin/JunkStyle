@@ -1,11 +1,7 @@
 using UnityEngine;
-using Zenject;
 
 public class TapManager : MonoBehaviour
-{
-    [Inject]
-    private LevelManager levelManager;
-    
+{    
     private RaycastHit hit;
 
     private bool isPaused;
@@ -21,10 +17,13 @@ public class TapManager : MonoBehaviour
                 if (hit.collider.CompareTag("Button"))
                     hit.collider.GetComponent<Button>().ChangeState();
                 else if (hit.collider.CompareTag("Computer"))
-                    levelManager.NextLevel();
+                    hit.collider.GetComponent<Computer>().LoadLevel();
             }
         }
     }
 
-    public void StopRaycast(bool state) => isPaused = state;
+    public void StopRaycast(bool state)
+    {
+        isPaused = state;
+    }
 }

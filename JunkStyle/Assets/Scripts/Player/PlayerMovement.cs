@@ -7,10 +7,9 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInput playerInput;
 
     [SerializeField]
-    private Transform pivot;
-
-    [SerializeField]
     private float speed;
+
+    private Transform pivot;
 
     private Rigidbody rb;
 
@@ -18,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        pivot = transform.Find("Pivot");
         rb = GetComponent<Rigidbody>();
     }
 
