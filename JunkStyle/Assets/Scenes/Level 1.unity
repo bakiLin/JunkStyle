@@ -8764,7 +8764,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 65
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -10979,7 +10979,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 835104607}
         m_TargetAssemblyTypeName: SceneAudio, Assembly-CSharp
-        m_MethodName: StopTheme
+        m_MethodName: StopSceneAudio
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
