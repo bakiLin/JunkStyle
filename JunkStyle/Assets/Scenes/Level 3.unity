@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.11480223, g: 0.11976789, b: 0.10575684, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8284,7 +8284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c58cdaf861b8fba488c73c471cc2da3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1.2
+  speed: 2
 --- !u!114 &2044536520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10303,7 +10303,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041C\u0435\u043D\u044E"
+  m_text: Menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c18246fbdc440114691d6e7c84e99fd3, type: 2}
   m_sharedMaterial: {fileID: 3469294465925731361, guid: c18246fbdc440114691d6e7c84e99fd3, type: 2}
@@ -11601,6 +11601,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8566949202445973905}
   - component: {fileID: 6513900691920178150}
+  - component: {fileID: 8566949202445973906}
   m_Layer: 0
   m_Name: Button
   m_TagString: Computer
@@ -13101,7 +13102,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442\u044C"
+  m_text: Resume
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c18246fbdc440114691d6e7c84e99fd3, type: 2}
   m_sharedMaterial: {fileID: 3469294465925731361, guid: c18246fbdc440114691d6e7c84e99fd3, type: 2}
@@ -13578,6 +13579,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7806218873431453230}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8566949202445973906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4365982391622108822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6064c3e1c9e8974eafbab2929d02da7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextLevelIndex: 0
 --- !u!114 &8588020959344111718
 MonoBehaviour:
   m_ObjectHideFlags: 0

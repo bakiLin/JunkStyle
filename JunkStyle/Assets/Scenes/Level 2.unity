@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.11480223, g: 0.11976789, b: 0.10575684, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7634,7 +7634,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041C\u0435\u043D\u044E"
+  m_text: Menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c18246fbdc440114691d6e7c84e99fd3, type: 2}
   m_sharedMaterial: {fileID: 3469294465925731361, guid: c18246fbdc440114691d6e7c84e99fd3, type: 2}
@@ -9235,7 +9235,7 @@ Transform:
   m_GameObject: {fileID: 5029505411689474385}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.3766666, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 3.3333328, y: 3.3333325, z: 3.3333328}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10550,7 +10550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vertical: 1
-  speed: 1
+  speed: 1.5
   pointOne: {fileID: 3181288452291407799}
   pointTwo: {fileID: 8938119160288564160}
 --- !u!224 &6998532811800568729
@@ -11046,7 +11046,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442\u044C"
+  m_text: Resume
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c18246fbdc440114691d6e7c84e99fd3, type: 2}
   m_sharedMaterial: {fileID: 3469294465925731361, guid: c18246fbdc440114691d6e7c84e99fd3, type: 2}
@@ -11544,8 +11544,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0638343474d2e29409b4f3b37c3ef478, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 2.5
-  gravityScale: -4
+  jumpForce: 2
+  gravityScale: -3
 --- !u!4 &8566949201237089125
 Transform:
   m_ObjectHideFlags: 0
