@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerGround : MonoBehaviour
+public class OLDPlayerGround : MonoBehaviour
 {
     [SerializeField]
     private LayerMask groundLayer;

@@ -2,9 +2,9 @@ using Zenject;
 
 public class Installer : MonoInstaller
 {
-    public PlayerJump playerJump;
+    public OLDPlayerJump playerJump;
 
-    public PlayerInput playerInput;
+    public OLDPlayerInput playerInput;
 
     public TapManager tapManager;
 
@@ -20,9 +20,9 @@ public class Installer : MonoInstaller
 
     public override void InstallBindings()
     {
-        Container.Bind<PlayerJump>().FromInstance(playerJump).AsSingle().NonLazy();
+        Container.Bind<OLDPlayerJump>().FromInstance(playerJump).AsSingle().NonLazy();
 
-        Container.Bind<PlayerInput>().FromInstance(playerInput).AsSingle().NonLazy();
+        Container.Bind<OLDPlayerInput>().FromInstance(playerInput).AsSingle().NonLazy();
 
         Container.Bind<TapManager>().FromInstance(tapManager).AsSingle().NonLazy();
 

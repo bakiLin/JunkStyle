@@ -1,10 +1,10 @@
 using UnityEngine;
 using Zenject;
 
-public class PlayerMovement : MonoBehaviour
+public class OLDPlayerMovement : MonoBehaviour
 {
     [Inject]
-    private PlayerInput playerInput;
+    private OLDPlayerInput playerInput;
 
     [SerializeField]
     private float speed;

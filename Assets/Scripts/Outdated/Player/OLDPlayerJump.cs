@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public class PlayerJump : MonoBehaviour
+public class OLDPlayerJump : MonoBehaviour
 {
     [Inject]
     private AudioManager audioManager;
@@ -9,14 +9,14 @@ public class PlayerJump : MonoBehaviour
     [SerializeField]
     private float jumpForce, gravityScale;
 
-    private PlayerGround playerGround;
+    private OLDPlayerGround playerGround;
 
     private Rigidbody rb;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        playerGround = GetComponent<PlayerGround>();
+        playerGround = GetComponent<OLDPlayerGround>();
 
         Physics.gravity = new Vector3(0f, gravityScale, 0f);
     }

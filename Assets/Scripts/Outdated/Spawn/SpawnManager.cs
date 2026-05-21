@@ -4,7 +4,7 @@ using Zenject;
 public class SpawnManager : MonoBehaviour
 {
     [Inject]
-    private PlayerJump playerJump;
+    private OLDPlayerJump playerJump;
 
     private Transform player;
 

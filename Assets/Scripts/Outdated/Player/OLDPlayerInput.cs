@@ -2,10 +2,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-public class PlayerInput : MonoBehaviour
+public class OLDPlayerInput : MonoBehaviour
 {
     [Inject]
-    private PlayerJump playerJump;
+    private OLDPlayerJump playerJump;
 
     [Inject]
     private TapManager tapManager;

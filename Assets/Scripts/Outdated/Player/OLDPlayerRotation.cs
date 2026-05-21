@@ -2,10 +2,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-public class PlayerRotation : MonoBehaviour
+public class OLDPlayerRotation : MonoBehaviour
 {
     [Inject]
-    private PlayerInput input;
+    private OLDPlayerInput input;
 
     [Inject]
     private CursorManager cursorManager;
