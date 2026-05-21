@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 7592812847756662339}
   - component: {fileID: 4639034872270897731}
   m_Layer: 0
-  m_Name: Platform
+  m_Name: Platform 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -160,9 +160,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveHorizontal: 1
+  _speed: 1
   _horizontalPoints: []
   _verticalPoints: []
-  _speed: 1
 --- !u!114 &4639034872270897731
 MonoBehaviour:
   m_ObjectHideFlags: 0

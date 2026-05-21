@@ -2,17 +2,16 @@ using UnityEngine;
 
 public class PlatformRegular : MonoBehaviour
 {
-    [SerializeField] private bool _moveHorizontal;
     [SerializeField] private float _speed;
+    [SerializeField] private bool _moveHorizontal;
+    [SerializeField] private bool _moveRight;
+    [SerializeField] private bool _moveUp;
     [SerializeField] private Transform[] _horizontalPoints;
     [SerializeField] private Transform[] _verticalPoints;
     private int _horizontalIndex;
     private int _verticalIndex;
     private Vector3 _oldPosition;
     private Vector3 _newPosition;
-
-    private bool _moveRight = true;
-    private bool _moveUp = false;
 
     private float _timeLeft;
     private float _fullTime;
