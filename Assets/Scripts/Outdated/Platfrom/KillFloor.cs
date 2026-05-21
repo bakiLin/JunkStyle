@@ -35,7 +35,6 @@ public class KillFloor : MonoBehaviour
         audioManager.Play("killfloor", .2f);
         pauseManager.NoPause(false);
         await blackout.DOFade(1f, 1f).AsyncWaitForCompletion();
-        spawnManager.Respawn();
         await UniTask.Delay(500);
         await blackout.DOFade(0f, 1f).AsyncWaitForCompletion();
         pauseManager.NoPause(true);

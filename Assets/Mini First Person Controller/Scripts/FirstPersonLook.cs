@@ -7,7 +7,7 @@ public class FirstPersonLook : MonoBehaviour
     public float sensitivity = 2;
     public float smoothing = 1.5f;
 
-    Vector2 velocity;
+    [SerializeField] Vector2 velocity = new Vector2(-90f, 0f);
     Vector2 frameVelocity;
 
 
