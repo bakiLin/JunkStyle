@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Platform : MonoBehaviour
+public class OLDPlatform : MonoBehaviour
 {
     [SerializeField]
     protected bool vertical;

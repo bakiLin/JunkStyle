@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlatformSemisphere : Platform
+public class PlatformSemisphere : OLDPlatform
 {
     [SerializeField]
     protected Transform[] points;

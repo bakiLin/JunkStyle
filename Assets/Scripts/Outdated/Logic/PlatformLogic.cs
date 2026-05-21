@@ -9,7 +9,7 @@ public class PlatformLogic : MonoBehaviour
     private int buttonNumber;
 
     [SerializeField]
-    private Platform[] platform;
+    private OLDPlatform[] platform;
 
     private bool[] buttonState;
 
