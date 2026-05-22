@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Button : MonoBehaviour
+public class OLDButton : MonoBehaviour
 {
     private AudioManager audioManager;
 

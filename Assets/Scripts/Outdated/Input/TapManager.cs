@@ -15,7 +15,7 @@ public class TapManager : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 10f))
             {
                 if (hit.collider.CompareTag("Button"))
-                    hit.collider.GetComponent<Button>().ChangeState();
+                    hit.collider.GetComponent<OLDButton>().ChangeState();
                 else if (hit.collider.CompareTag("Computer"))
                     hit.collider.GetComponent<Computer>().LoadLevel();
             }
