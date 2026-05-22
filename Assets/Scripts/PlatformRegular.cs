@@ -8,14 +8,13 @@ public class PlatformRegular : MonoBehaviour
     [SerializeField] private bool _moveUp;
     [SerializeField] private Transform[] _horizontalPoints;
     [SerializeField] private Transform[] _verticalPoints;
+
     private int _horizontalIndex;
     private int _verticalIndex;
     private Vector3 _oldPosition;
     private Vector3 _newPosition;
-
     private float _timeLeft;
     private float _fullTime;
-    private float _percent;
 
     private void Start()
     {
@@ -25,85 +24,63 @@ public class PlatformRegular : MonoBehaviour
     private void FixedUpdate()
     {
         _timeLeft -= Time.deltaTime;
-        _percent = (_fullTime - _timeLeft) / _fullTime;
-        transform.position = Vector3.Lerp(_oldPosition, _newPosition, _percent);
-
-        if (_percent >= 1)
-        {
-            NextPoint();
-        }
+        float percent = (_fullTime - _timeLeft) / _fullTime;
+        transform.position = Vector3.Lerp(_oldPosition, _newPosition, percent);
+        if (percent >= 1) NextPoint();
     }
 
     private void NextPoint()
     {
-        if (_moveHorizontal)
+        if (_moveHorizontal) UpdateHorizontalMovement();
+        else UpdateVerticalMovement();
+
+        transform.position = _oldPosition;
+
+        _fullTime = Vector3.Distance(_oldPosition, _newPosition) / _speed;
+        _timeLeft = _fullTime;
+    }
+
+    private void UpdateHorizontalMovement()
+    {
+        _oldPosition = _horizontalPoints[_horizontalIndex].position;
+        _oldPosition.y = transform.position.y;
+
+        _horizontalIndex = GetNextIndex(_horizontalIndex, _horizontalPoints.Length, ref _moveRight);
+
+        _newPosition = _horizontalPoints[_horizontalIndex].position;
+        _newPosition.y = transform.position.y;
+    }
+
+    private void UpdateVerticalMovement()
+    {
+        _oldPosition = transform.position;
+        _oldPosition.y = _verticalPoints[_verticalIndex].position.y;
+
+        _verticalIndex = GetNextIndex(_verticalIndex, _verticalPoints.Length, ref _moveUp);
+
+        _newPosition = transform.position;
+        _newPosition.y = _verticalPoints[_verticalIndex].position.y;
+    }
+
+    private int GetNextIndex(int currentIndex, int length, ref bool direction)
+    {
+        if (direction)
         {
-            _oldPosition = _horizontalPoints[_horizontalIndex].position;
-            _oldPosition.y = transform.position.y;
-
-            if (_moveRight)
+            if (currentIndex == length - 1)
             {
-                if (_horizontalIndex == _horizontalPoints.Length - 1)
-                {
-                    _moveRight = false;
-                    _horizontalIndex--;
-                }
-                else
-                {
-                    _horizontalIndex++;
-                }
+                direction = false;
+                return currentIndex - 1;
             }
-            else
-            {
-                if (_horizontalIndex == 0)
-                {
-                    _moveRight = true;
-                    _horizontalIndex++;
-                }
-                else
-                {
-                    _horizontalIndex--;
-                }
-            }
-
-            _newPosition = _horizontalPoints[_horizontalIndex].position;
-            _newPosition.y = transform.position.y;
+            return currentIndex + 1;
         }
         else
         {
-            _oldPosition = transform.position;
-            _oldPosition.y = _verticalPoints[_verticalIndex].position.y;
-
-            if (_moveUp)
+            if (currentIndex == 0)
             {
-                if (_verticalIndex == _verticalPoints.Length - 1)
-                {
-                    _moveUp = false;
-                    _verticalIndex--;
-                }
-                else
-                {
-                    _verticalIndex++;
-                }
+                direction = true;
+                return currentIndex + 1;
             }
-            else
-            {
-                if (_verticalIndex == 0)
-                {
-                    _moveUp = true;
-                    _verticalIndex++;
-                }
-                else
-                {
-                    _verticalIndex--;
-                }
-            }
-
-            _newPosition = transform.position;
-            _newPosition.y = _verticalPoints[_verticalIndex].position.y;
+            return currentIndex - 1;
         }
-
-        _fullTime = Vector3.Distance(_oldPosition, _newPosition) / _speed;
-        _timeLeft = Vector3.Distance(transform.position, _newPosition) / _speed;
     }
 }
