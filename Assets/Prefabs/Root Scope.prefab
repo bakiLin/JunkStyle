@@ -48,4 +48,4 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
-  _remoteControllerSettings: {fileID: 11400000, guid: e352cbf9cb8d25d43aef2a1cb4abe218, type: 2}
+  _remoteSettings: {fileID: 11400000, guid: e352cbf9cb8d25d43aef2a1cb4abe218, type: 2}

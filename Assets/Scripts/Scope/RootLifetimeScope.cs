@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class RootLifetimeScope : LifetimeScope
 {
-    [SerializeField] private RemoteControllerSettingsSO _remoteControllerSettings;
+    [SerializeField] private RemoteSettingsSO _remoteSettings;
 
     protected override void Configure(IContainerBuilder builder)
     {
         RegisterMessagePipe(builder);
 
-        builder.RegisterInstance(_remoteControllerSettings);
+        builder.RegisterInstance(_remoteSettings);
     }
 
     private void RegisterMessagePipe(IContainerBuilder builder)
