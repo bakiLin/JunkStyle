@@ -1,10 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
 public class ScrollbarManager : MonoBehaviour
 {
-    [Inject]
     private AudioManager audioManager;
 
     [SerializeField]

@@ -1,9 +1,7 @@
 using UnityEngine;
-using Zenject;
 
 public class Button : MonoBehaviour
 {
-    [Inject]
     private AudioManager audioManager;
 
     [SerializeField]

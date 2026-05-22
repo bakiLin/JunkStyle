@@ -1,12 +1,9 @@
 using UnityEngine;
-using Zenject;
 
 public class Computer : MonoBehaviour
 {
-    [Inject]
     private AudioManager audioManager;
 
-    [Inject]
     private LevelManager levelManager;
 
     [SerializeField]

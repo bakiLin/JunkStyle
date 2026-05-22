@@ -1,16 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Zenject;
 
 public class PauseManager : MonoBehaviour
 {
-    [Inject]
     private TapManager tapManager;
 
-    [Inject]
     private CursorManager cursorManager;
 
-    [Inject]
     private AudioManager audioManager;
 
     [SerializeField]

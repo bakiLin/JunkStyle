@@ -2,20 +2,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using Cysharp.Threading.Tasks;
-using Zenject;
 
 public class KillFloor : MonoBehaviour
 {
-    [Inject]
     private AudioManager audioManager;
 
-    [Inject]
     private PauseManager pauseManager;
 
     [SerializeField]
     private Image blackout;
 
-    [Inject]
     private SpawnManager spawnManager;
 
     private void OnCollisionEnter(Collision collision)

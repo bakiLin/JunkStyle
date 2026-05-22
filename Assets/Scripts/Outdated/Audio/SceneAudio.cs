@@ -1,9 +1,7 @@
 using UnityEngine;
-using Zenject;
 
 public class SceneAudio : MonoBehaviour
 {
-    [Inject]
     private AudioManager audioManager;
 
     [SerializeField]

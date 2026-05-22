@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
-using Zenject;
 
 public class WireManager : MonoBehaviour
 {
-    [Inject]
     private MaterialManager materialManager;
 
     [SerializeField]
