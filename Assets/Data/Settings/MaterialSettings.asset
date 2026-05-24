@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebd3dac3dc014124b8400ba1e57daa31, type: 3}
+  m_Name: MaterialSettings
+  m_EditorClassIdentifier: 
+  <RemoteOn>k__BackingField: {fileID: 2100000, guid: 71c8d79e661bfb7499983a96beae5cb1, type: 2}
+  <RemoteOff>k__BackingField: {fileID: 2100000, guid: 3516d0435840d254886db62221309e76, type: 2}
+  <WireOn>k__BackingField: {fileID: 2100000, guid: e925e593fc2405b41a48cd906e5cdb95, type: 2}
+  <WireOff>k__BackingField: {fileID: 2100000, guid: 36774ea528ab7994c902c84873eec783, type: 2}
+  <ScreenOn>k__BackingField: {fileID: 2100000, guid: 7b0c220a661c9e44890fb5dd129b324f, type: 2}
+  <ScreenOff>k__BackingField: {fileID: 2100000, guid: 36774ea528ab7994c902c84873eec783, type: 2}

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e6435b8bd97b6c49a9aeab767d60bee, type: 3}
-  m_Name: RemoteControllerSettings
+  m_Name: RemoteSettings
   m_EditorClassIdentifier: 
   <OnRotation>k__BackingField: {x: 90, y: 20, z: 0}
   <OffRotation>k__BackingField: {x: 90, y: 5, z: 0}

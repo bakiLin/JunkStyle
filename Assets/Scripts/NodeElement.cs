@@ -1,27 +1,27 @@
 using UnityEngine;
 
-public class NodeElement : MonoBehaviour
+public class NodeElement : NodeBase
 {
+    enum NodeType { OR, AND, NOR }
+
     [SerializeField] private NodeType _nodeType;
-    private bool _currentState;
+    [SerializeField] private NodeBase[] _connectedNodes;
     private int _activeInputs;
 
-    public (bool, bool) Switch(bool inputState)
+    public override void Switch(bool state)
     {
-        var oldState = _currentState;
-        _activeInputs += inputState ? 1 : -1;
-        if (_activeInputs < 0) _activeInputs = 0;
+        var _oldState = _currentState;
+        _activeInputs = Mathf.Max(0, _activeInputs + (state ? 1 : -1));
 
-        _currentState = _nodeType switch
-        {
+        _currentState = _nodeType switch {
             NodeType.OR => _activeInputs > 0,
             NodeType.AND => _activeInputs == 2,
-            NodeType.NOR => _activeInputs == 0,
-            _ => _currentState
+            NodeType.NOR => _activeInputs == 0
         };
 
-        return (oldState != _currentState, _currentState);
+        if (_currentState == _oldState) return;
+
+        foreach (var node in _connectedNodes)
+            node.Switch(_currentState);
     }
 }
-
-public enum NodeType { OR, AND, NOR }
