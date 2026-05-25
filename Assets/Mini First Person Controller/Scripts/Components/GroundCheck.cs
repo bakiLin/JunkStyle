@@ -18,7 +18,7 @@ public class GroundCheck : MonoBehaviour
     float RaycastDistance => distanceThreshold + OriginOffset;
 
 
-    void LateUpdate()
+    void Update()
     {
         // Check if we are grounded now.
         bool isGroundedNow = Physics.Raycast(RaycastOrigin, Vector3.down, distanceThreshold * 2);

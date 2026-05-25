@@ -15,7 +15,23 @@ public class FirstPersonMovement : MonoBehaviour
     /// <summary> Functions to override movement speed. Will use the last added override. </summary>
     public List<System.Func<float>> speedOverrides = new List<System.Func<float>>();
 
+    private PlatformRegular _platform;
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.TryGetComponent(out PlatformRegular platform))
+        {
+            _platform = platform;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.transform.TryGetComponent(out PlatformRegular platform))
+        {
+            _platform = null;
+        }
+    }
 
     void Awake()
     {
@@ -40,5 +56,10 @@ public class FirstPersonMovement : MonoBehaviour
 
         // Apply movement.
         rigidbody.velocity = transform.rotation * new Vector3(targetVelocity.x, rigidbody.velocity.y, targetVelocity.y);
+
+        if (_platform != null)
+        {
+            rigidbody.position += _platform.Delta;
+        }
     }
 }

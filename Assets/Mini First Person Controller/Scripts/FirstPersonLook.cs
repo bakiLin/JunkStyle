@@ -23,7 +23,7 @@ public class FirstPersonLook : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void Update()
+    void LateUpdate()
     {
         // Get smooth velocity.
         Vector2 mouseDelta = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
@@ -33,7 +33,18 @@ public class FirstPersonLook : MonoBehaviour
         velocity.y = Mathf.Clamp(velocity.y, -90, 90);
 
         // Rotate camera up-down and controller left-right from velocity.
-        transform.localRotation = Quaternion.AngleAxis(-velocity.y, Vector3.right);
+        //transform.localRotation = Quaternion.AngleAxis(-velocity.y, Vector3.right);
         character.localRotation = Quaternion.AngleAxis(velocity.x, Vector3.up);
+
+        transform.rotation =
+            character.rotation *
+            Quaternion.AngleAxis(-velocity.y, Vector3.right);
+
+        transform.position =
+            Vector3.Lerp(
+                transform.position,
+                character.position + Vector3.up,
+                20f * Time.deltaTime
+            );
     }
 }

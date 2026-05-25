@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5002679748118848688}
   - component: {fileID: 1476619016363901837}
   - component: {fileID: 3422741988559108944}
-  - component: {fileID: 2698259950667412329}
   m_Layer: 0
   m_Name: Platform 2
   m_TagString: Untagged
@@ -68,22 +67,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8c19f0cac3c3f14085292cd6224bf1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveHorizontal: 0
   _speed: 1
+  _moveHorizontal: 0
   _horizontalPoints: []
   _verticalPoints: []
---- !u!114 &2698259950667412329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1735694710312273331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3ff1de9a6921794e9f5929d74e200bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  Delta: {x: 0, y: 0, z: 0}
 --- !u!1 &2320403424690056819
 GameObject:
   m_ObjectHideFlags: 0

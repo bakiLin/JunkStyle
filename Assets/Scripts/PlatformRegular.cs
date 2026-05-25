@@ -19,9 +19,16 @@ public class PlatformRegular : MonoBehaviour
     private float _timeLeft;
     private float _fullTime;
 
+    private Rigidbody _rb;
+    private Rigidbody _platform;
+
+    public Vector3 Delta;
+
     [Inject]
     private void Construct(ISubscriber<ScreenStateChangedMessage> screenStateChanged)
     {
+        _rb = GetComponent<Rigidbody>();
+
         DisposableBag.Create(
             screenStateChanged.Subscribe(HandleScreenStateChangedMessage)
         ).AddTo(destroyCancellationToken);
@@ -34,9 +41,20 @@ public class PlatformRegular : MonoBehaviour
 
     private void FixedUpdate()
     {
+        var oldPosition = _rb.position;
+
         _timeLeft -= Time.deltaTime;
         float percent = (_fullTime - _timeLeft) / _fullTime;
-        transform.position = Vector3.Lerp(_oldPosition, _newPosition, percent);
+        //transform.position = Vector3.Lerp(_oldPosition, _newPosition, percent);
+
+        var position = Vector3.Lerp(_oldPosition, _newPosition, percent);
+
+        Delta = position - oldPosition;
+        Delta.y = Mathf.Max(0.01f, Delta.y);
+        Debug.Log(Delta.y);
+        //Delta.y = 0f;
+
+        _rb.MovePosition(position);
 
         if (percent >= 1)
         {
