@@ -16,5 +16,5 @@ MonoBehaviour:
   <RemoteOff>k__BackingField: {fileID: 2100000, guid: 3516d0435840d254886db62221309e76, type: 2}
   <WireOn>k__BackingField: {fileID: 2100000, guid: e925e593fc2405b41a48cd906e5cdb95, type: 2}
   <WireOff>k__BackingField: {fileID: 2100000, guid: 36774ea528ab7994c902c84873eec783, type: 2}
-  <ScreenOn>k__BackingField: {fileID: 2100000, guid: 7b0c220a661c9e44890fb5dd129b324f, type: 2}
+  <ScreenOn>k__BackingField: {fileID: 2100000, guid: e925e593fc2405b41a48cd906e5cdb95, type: 2}
   <ScreenOff>k__BackingField: {fileID: 2100000, guid: 36774ea528ab7994c902c84873eec783, type: 2}

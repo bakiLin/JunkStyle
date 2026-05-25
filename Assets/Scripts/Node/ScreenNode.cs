@@ -20,6 +20,8 @@ public class ScreenNode : NodeBase
 
     public override void Switch(bool state)
     {
+        if (_currentState == state) return;
+
         _currentState = state;
         _changeMaterial.Publish(new ChangeMaterialMessage(
             MaterialType.Screen, _renderer, _currentState));
