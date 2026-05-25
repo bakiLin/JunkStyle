@@ -8,10 +8,10 @@ public class MaterialSetter : IDisposable, IStartable
     private IDisposable _disposable;
 
     private MaterialSetter(MaterialSettingsSO materialSettings, 
-        ISubscriber<ChangeMaterialMessage> changeMaterialMessage)
+        ISubscriber<ChangeMaterialMessage> changeMaterial)
     {
         _materialSettings = materialSettings;
-        _disposable = changeMaterialMessage.Subscribe(HandleChangeMaterialMessage);
+        _disposable = changeMaterial.Subscribe(HandleChangeMaterialMessage);
     }
 
     private void HandleChangeMaterialMessage(ChangeMaterialMessage message)

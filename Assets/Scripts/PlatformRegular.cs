@@ -1,20 +1,31 @@
+﻿using Cysharp.Threading.Tasks;
+using MessagePipe;
 using UnityEngine;
+using VContainer;
 
 public class PlatformRegular : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private bool _moveHorizontal;
-    [SerializeField] private bool _moveRight;
-    [SerializeField] private bool _moveUp;
     [SerializeField] private Transform[] _horizontalPoints;
     [SerializeField] private Transform[] _verticalPoints;
 
+    private bool _moveRight;
+    private bool _moveUp;
     private int _horizontalIndex;
     private int _verticalIndex;
     private Vector3 _oldPosition;
     private Vector3 _newPosition;
     private float _timeLeft;
     private float _fullTime;
+
+    [Inject]
+    private void Construct(ISubscriber<ScreenStateChangedMessage> screenStateChanged)
+    {
+        DisposableBag.Create(
+            screenStateChanged.Subscribe(HandleScreenStateChangedMessage)
+        ).AddTo(destroyCancellationToken);
+    }
 
     private void Start()
     {
@@ -26,40 +37,50 @@ public class PlatformRegular : MonoBehaviour
         _timeLeft -= Time.deltaTime;
         float percent = (_fullTime - _timeLeft) / _fullTime;
         transform.position = Vector3.Lerp(_oldPosition, _newPosition, percent);
-        if (percent >= 1) NextPoint();
+
+        if (percent >= 1)
+        {
+            if (_moveHorizontal)
+            {
+                _horizontalIndex = GetNextIndex(
+                    _horizontalIndex, _horizontalPoints.Length, ref _moveRight);
+            }
+            else
+            {
+                _verticalIndex = GetNextIndex(
+                    _verticalIndex, _verticalPoints.Length, ref _moveUp);
+            }
+
+            NextPoint();
+        }
+    }
+
+    private void HandleScreenStateChangedMessage(ScreenStateChangedMessage message)
+    {
+        if (message.PlatformName == gameObject.name)
+        {
+            _moveHorizontal = !_moveHorizontal;
+            NextPoint();
+        }
     }
 
     private void NextPoint()
     {
-        if (_moveHorizontal) UpdateHorizontalMovement();
-        else UpdateVerticalMovement();
+        _oldPosition = transform.position;
 
-        transform.position = _oldPosition;
+        if (_moveHorizontal)
+        {
+            _newPosition = _horizontalPoints[_horizontalIndex].position;
+            _newPosition.y = transform.position.y;
+        }
+        else
+        {
+            _newPosition = transform.position;
+            _newPosition.y = _verticalPoints[_verticalIndex].position.y;
+        }
 
         _fullTime = Vector3.Distance(_oldPosition, _newPosition) / _speed;
         _timeLeft = _fullTime;
-    }
-
-    private void UpdateHorizontalMovement()
-    {
-        _oldPosition = _horizontalPoints[_horizontalIndex].position;
-        _oldPosition.y = transform.position.y;
-
-        _horizontalIndex = GetNextIndex(_horizontalIndex, _horizontalPoints.Length, ref _moveRight);
-
-        _newPosition = _horizontalPoints[_horizontalIndex].position;
-        _newPosition.y = transform.position.y;
-    }
-
-    private void UpdateVerticalMovement()
-    {
-        _oldPosition = transform.position;
-        _oldPosition.y = _verticalPoints[_verticalIndex].position.y;
-
-        _verticalIndex = GetNextIndex(_verticalIndex, _verticalPoints.Length, ref _moveUp);
-
-        _newPosition = transform.position;
-        _newPosition.y = _verticalPoints[_verticalIndex].position.y;
     }
 
     private int GetNextIndex(int currentIndex, int length, ref bool direction)

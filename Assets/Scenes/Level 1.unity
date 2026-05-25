@@ -1890,7 +1890,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1735694710312273331, guid: 6f54952a039c6a448a407b474ebdd282, type: 3}
       propertyPath: m_Name
-      value: Platform 2
+      value: Platform 3
       objectReference: {fileID: 0}
     - target: {fileID: 3422741988559108944, guid: 6f54952a039c6a448a407b474ebdd282, type: 3}
       propertyPath: _speed
@@ -1898,7 +1898,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3422741988559108944, guid: 6f54952a039c6a448a407b474ebdd282, type: 3}
       propertyPath: _moveRight
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3422741988559108944, guid: 6f54952a039c6a448a407b474ebdd282, type: 3}
       propertyPath: _moveHorizontal
@@ -2108,6 +2108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6a66873e11f2944a3a223be74823ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _platformName: Platform 1
 --- !u!1 &1580796163
 GameObject:
   m_ObjectHideFlags: 0
@@ -2305,6 +2306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6a66873e11f2944a3a223be74823ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _platformName: Platform 2
 --- !u!1 &1607394088
 GameObject:
   m_ObjectHideFlags: 0
@@ -2439,7 +2441,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4155774844560279005, guid: 36fd1b10a4e3fb347b2d19d4823e0e3b, type: 3}
       propertyPath: m_Name
-      value: Platform 1
+      value: Platform 4
       objectReference: {fileID: 0}
     - target: {fileID: 7521447465300748542, guid: 36fd1b10a4e3fb347b2d19d4823e0e3b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2487,7 +2489,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7592812847756662339, guid: 36fd1b10a4e3fb347b2d19d4823e0e3b, type: 3}
       propertyPath: _moveRight
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7592812847756662339, guid: 36fd1b10a4e3fb347b2d19d4823e0e3b, type: 3}
       propertyPath: _verticalPoints.Array.size
@@ -2556,6 +2558,7 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects:
+  - {fileID: 1522473367}
   - {fileID: 1234500564}
 --- !u!4 &1952574048
 Transform:
@@ -2990,7 +2993,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7592812847756662339, guid: 36fd1b10a4e3fb347b2d19d4823e0e3b, type: 3}
       propertyPath: _moveRight
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7592812847756662339, guid: 36fd1b10a4e3fb347b2d19d4823e0e3b, type: 3}
       propertyPath: _verticalPoints.Array.size
@@ -3043,6 +3046,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3107102236998832922, guid: 0dfb340f33335ae4e8de31250ac9e1c1, type: 3}
       propertyPath: _index
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3107102236998832922, guid: 0dfb340f33335ae4e8de31250ac9e1c1, type: 3}
+      propertyPath: _currentState
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3107102236998832922, guid: 0dfb340f33335ae4e8de31250ac9e1c1, type: 3}
