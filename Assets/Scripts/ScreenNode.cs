@@ -5,18 +5,19 @@ using VContainer;
 public class ScreenNode : NodeBase
 {
     private MeshRenderer _renderer;
-    private IPublisher<ScreenMaterialMessage> _screenMaterial;
+    private IPublisher<ChangeMaterialMessage> _changeMaterial;
 
     [Inject]
-    private void Construct(IPublisher<ScreenMaterialMessage> screenMaterial)
+    private void Construct(IPublisher<ChangeMaterialMessage> changeMaterial)
     {
-        _screenMaterial = screenMaterial;
+        _changeMaterial = changeMaterial;
         _renderer = GetComponent<MeshRenderer>();
     }
 
     public override void Switch(bool state)
     {
         _currentState = state;
-        _screenMaterial.Publish(new ScreenMaterialMessage(_renderer, _currentState));
+        _changeMaterial.Publish(new ChangeMaterialMessage(
+            MaterialType.Screen, _renderer, _currentState));
     }
 }

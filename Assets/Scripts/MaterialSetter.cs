@@ -1,6 +1,5 @@
 using MessagePipe;
 using System;
-using UnityEngine;
 using VContainer.Unity;
 
 public class MaterialSetter : IDisposable, IStartable
@@ -9,37 +8,33 @@ public class MaterialSetter : IDisposable, IStartable
     private IDisposable _disposable;
 
     private MaterialSetter(MaterialSettingsSO materialSettings, 
-        ISubscriber<RemoteMaterialMessage> remoteMaterial, ISubscriber<WireMaterialMessage> wireMaterial,
-        ISubscriber<ScreenMaterialMessage> screenMaterial)
+        ISubscriber<ChangeMaterialMessage> changeMaterialMessage)
     {
         _materialSettings = materialSettings;
-
-        _disposable = DisposableBag.Create(
-            remoteMaterial.Subscribe(x => UpdateRemoteMaterial(x.Renderer, x.State)),
-            wireMaterial.Subscribe(x => UpdateWireMaterial(x.Renderer, x.State)),
-            screenMaterial.Subscribe(x => UpdateScreenMaterial(x.Renderer, x.State))
-        );
+        _disposable = changeMaterialMessage.Subscribe(HandleChangeMaterialMessage);
     }
 
-    private void UpdateWireMaterial(MeshRenderer renderer, bool state)
+    private void HandleChangeMaterialMessage(ChangeMaterialMessage message)
     {
-        var materials = renderer.materials;
-        materials[0] = state ? _materialSettings.WireOn : _materialSettings.WireOff;
-        renderer.materials = materials;
-    }
+        var materials = message.Renderer.materials;
 
-    private void UpdateRemoteMaterial(MeshRenderer renderer, bool state)
-    {
-        var materials = renderer.materials;
-        materials[2] = state ? _materialSettings.RemoteOn : _materialSettings.RemoteOff;
-        renderer.materials = materials;
-    }
+        switch (message.Type)
+        {
+            case MaterialType.Remote:
+                materials[2] = message.State 
+                    ? _materialSettings.RemoteOn : _materialSettings.RemoteOff;
+                break;
+            case MaterialType.Wire:
+                materials[0] = message.State
+                    ? _materialSettings.WireOn : _materialSettings.WireOff;
+                break;
+            case MaterialType.Screen:
+                materials[1] = message.State
+                    ? _materialSettings.ScreenOn : _materialSettings.ScreenOff;
+                break;
+        }
 
-    private void UpdateScreenMaterial(MeshRenderer renderer, bool state)
-    {
-        var materials = renderer.materials;
-        materials[1] = state ? _materialSettings.ScreenOn : _materialSettings.ScreenOff;
-        renderer.materials = materials;
+        message.Renderer.materials = materials;
     }
 
     public void Dispose()

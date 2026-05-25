@@ -550,7 +550,7 @@ GameObject:
   - component: {fileID: 746686142}
   - component: {fileID: 746686141}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1633,6 +1633,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6675423462856586061, guid: ccf578cc3550e7a4187356e9dcbfa593, type: 3}
   m_PrefabInstance: {fileID: 7237817531383443998}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1494073703 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4607467616704478155, guid: ccf578cc3550e7a4187356e9dcbfa593, type: 3}
+  m_PrefabInstance: {fileID: 7237817531383443998}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc23177e2aa4ca64caa3cb7ac5aee47c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1494298192
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2842,12 +2853,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8609348604388048530, guid: f185c8a022bc6884cbe21132b9f7a8cc, type: 3}
       propertyPath: _connectedNodes.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8609348604388048530, guid: f185c8a022bc6884cbe21132b9f7a8cc, type: 3}
       propertyPath: _connectedNodes.Array.data[0]
       value: 
       objectReference: {fileID: 2022682957}
+    - target: {fileID: 8609348604388048530, guid: f185c8a022bc6884cbe21132b9f7a8cc, type: 3}
+      propertyPath: _connectedNodes.Array.data[1]
+      value: 
+      objectReference: {fileID: 1494073703}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3325,7 +3340,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4088377606046310474, guid: 7c7fcc6a101534b43896b48c0f7834e6, type: 3}
       propertyPath: _connectedNodes.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4088377606046310474, guid: 7c7fcc6a101534b43896b48c0f7834e6, type: 3}
       propertyPath: _connectedNodes.Array.data[0]
@@ -3335,6 +3350,10 @@ PrefabInstance:
       propertyPath: _connectedNodes.Array.data[1]
       value: 
       objectReference: {fileID: 1564229774}
+    - target: {fileID: 4088377606046310474, guid: 7c7fcc6a101534b43896b48c0f7834e6, type: 3}
+      propertyPath: _connectedNodes.Array.data[2]
+      value: 
+      objectReference: {fileID: 1494073703}
     - target: {fileID: 8238060452341782168, guid: 7c7fcc6a101534b43896b48c0f7834e6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14.43

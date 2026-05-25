@@ -5,18 +5,19 @@ using VContainer;
 public class NodeWire : NodeBase
 {
     private MeshRenderer _renderer;
-    private IPublisher<WireMaterialMessage> _wireMaterial;
+    private IPublisher<ChangeMaterialMessage> _changeMaterial;
 
     [Inject]
-    private void Construct(IPublisher<WireMaterialMessage> wireMaterial)
+    private void Construct(IPublisher<ChangeMaterialMessage> changeMaterial)
     {
-        _wireMaterial = wireMaterial;
+        _changeMaterial = changeMaterial;
         _renderer = GetComponent<MeshRenderer>();
     }
 
     public override void Switch(bool state)
     {
         _currentState = state;
-        _wireMaterial.Publish(new WireMaterialMessage(_renderer, _currentState));
+        _changeMaterial.Publish(new ChangeMaterialMessage(
+            MaterialType.Wire, _renderer, _currentState));
     }
 }

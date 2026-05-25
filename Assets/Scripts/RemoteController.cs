@@ -8,14 +8,14 @@ public class RemoteController : NodeBase, IInteractable
     private Transform _button;
     private MeshRenderer _remoteRenderer;
     private RemoteSettingsSO _settings;
-    private IPublisher<RemoteMaterialMessage> _remoteMaterial;
+    private IPublisher<ChangeMaterialMessage> _changeMaterial;
 
     [Inject]
     private void Construct(RemoteSettingsSO settings, 
-        IPublisher<RemoteMaterialMessage> remoteMaterial)
+        IPublisher<ChangeMaterialMessage> changeMaterial)
     {
         _settings = settings;
-        _remoteMaterial = remoteMaterial;
+        _changeMaterial = changeMaterial;
         _button = transform.GetChild(0);
         _remoteRenderer = GetComponent<MeshRenderer>();
     }
@@ -36,7 +36,8 @@ public class RemoteController : NodeBase, IInteractable
         if (state) _button.localRotation = Quaternion.Euler(_settings.OnRotation);
         else _button.localRotation = Quaternion.Euler(_settings.OffRotation);
 
-        _remoteMaterial.Publish(new RemoteMaterialMessage(_remoteRenderer, _currentState));
+        _changeMaterial.Publish(new ChangeMaterialMessage(
+            MaterialType.Remote, _remoteRenderer, _currentState));
 
         foreach (var node in _connectedNodes)
             node.Switch(_currentState);
