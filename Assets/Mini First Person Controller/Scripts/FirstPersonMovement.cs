@@ -19,12 +19,18 @@ public class FirstPersonMovement : MonoBehaviour
     public List<System.Func<float>> speedOverrides = new();
 
     [Inject]
-    private void Construct(ISubscriber<PlayerKilledMessage> playerKilled)
+    private void Construct(ISubscriber<PlayerKilledMessage> playerKilled,
+        ISubscriber<ResumePlayerMessage> resumePlayer)
     {
         _rb = GetComponent<Rigidbody>();
 
         DisposableBag.Create(
-            playerKilled.Subscribe(_ => StopMovement())
+            playerKilled.Subscribe(_ => StopMovement()),
+            resumePlayer.Subscribe(_ => {
+                _cts = new();
+                _rb.isKinematic = false;
+                MovementAsync(_cts.Token).Forget();
+            })
         ).AddTo(destroyCancellationToken);
     }
 

@@ -15,10 +15,16 @@ public class FirstPersonLook : MonoBehaviour
     public float smoothing = 1.5f;
 
     [Inject]
-    private void Construct(ISubscriber<PlayerKilledMessage> playerKilled)
+    private void Construct(ISubscriber<PlayerKilledMessage> playerKilled,
+        ISubscriber<ResumePlayerMessage> resumePlayer)
     {
         DisposableBag.Create(
-            playerKilled.Subscribe(_ => StopRotation())
+            playerKilled.Subscribe(_ => StopRotation()),
+            resumePlayer.Subscribe(_ => {
+                _cts = new();
+                velocity = new Vector2(-90f, 0f);
+                RotateAsync(_cts.Token).Forget();
+            })
         ).AddTo(destroyCancellationToken);
     }
 

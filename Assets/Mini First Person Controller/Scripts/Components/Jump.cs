@@ -15,12 +15,17 @@ public class Jump : MonoBehaviour
     private CancellationTokenSource _cts = new();
 
     [Inject]
-    private void Construct(ISubscriber<PlayerKilledMessage> playerKilled)
+    private void Construct(ISubscriber<PlayerKilledMessage> playerKilled,
+        ISubscriber<ResumePlayerMessage> resumePlayer)
     {
         _rb = GetComponent<Rigidbody>();
 
         DisposableBag.Create(
-            playerKilled.Subscribe(_ => StopJumping())
+            playerKilled.Subscribe(_ => StopJumping()),
+            resumePlayer.Subscribe(_ => {
+                _cts = new();
+                JumpAsync(_cts.Token).Forget();
+            })
         ).AddTo(destroyCancellationToken);
     }
 
