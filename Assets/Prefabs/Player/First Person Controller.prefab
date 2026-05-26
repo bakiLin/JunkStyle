@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 2635369819618537959}
   - component: {fileID: 4280786651827719844}
   - component: {fileID: 5546264600198197493}
+  - component: {fileID: 7712097510061926270}
   m_Layer: 0
   m_Name: First Person Controller
   m_TagString: Untagged
@@ -247,6 +248,19 @@ MonoBehaviour:
   _jumpForce: 3.5
   _coyoteTime: 0.15
   _delayAfterJump: 0.3
+--- !u!114 &7712097510061926270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2356630034088011121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a00da9336cb9e86439e23b29222df7fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerSpawn: {fileID: 0}
 --- !u!1 &3601346732149605583
 GameObject:
   m_ObjectHideFlags: 0
@@ -658,6 +672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 084c01ab381b9da4082c1f84cf70751b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _distanceThreshold: 0.15
 --- !u!1 &6010139601786582129
 GameObject:
   m_ObjectHideFlags: 0
