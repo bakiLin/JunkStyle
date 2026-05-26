@@ -36,6 +36,7 @@ public class FirstPersonMovement : MonoBehaviour
     private void StopMovement()
     {
         _rb.velocity = Vector3.zero;
+        _rb.isKinematic = true;
         _cts?.Cancel();
     }
 

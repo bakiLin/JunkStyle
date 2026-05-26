@@ -1,5 +1,8 @@
 ﻿using Cysharp.Threading.Tasks;
+using MessagePipe;
+using System.Threading;
 using UnityEngine;
+using VContainer;
 
 public class Jump : MonoBehaviour
 {
@@ -9,33 +12,58 @@ public class Jump : MonoBehaviour
     [SerializeField] private float _delayAfterJump = .2f;
     private Rigidbody _rb;
     private float _coyoteTimeCounter;
-    private bool _canJump = true;
+    private CancellationTokenSource _cts = new();
 
-    private void Awake()
+    [Inject]
+    private void Construct(ISubscriber<PlayerKilledMessage> playerKilled)
     {
         _rb = GetComponent<Rigidbody>();
+
+        DisposableBag.Create(
+            playerKilled.Subscribe(_ => StopJumping())
+        ).AddTo(destroyCancellationToken);
     }
 
-    private void Update()
+    private void Start()
     {
-        if (_groundCheck.IsGrounded) _coyoteTimeCounter = _coyoteTime;
-        else _coyoteTimeCounter -= Time.deltaTime;
-
-        if (Input.GetButtonDown("Jump") && _coyoteTimeCounter > 0f && _canJump)
-            JumpAsync().Forget();
+        JumpAsync(_cts.Token).Forget();
     }
 
-    private async UniTask JumpAsync()
+    private void StopJumping()
     {
-        _canJump = false;
-        _rb.AddForce(_jumpForce * 100 * Vector3.up);
-        _coyoteTimeCounter = 0f;
-        await UniTask.Delay((int)(_delayAfterJump * 1000), cancellationToken: destroyCancellationToken);
-        _canJump = true;
+        _cts?.Cancel();
+    }
+
+    private async UniTask JumpAsync(CancellationToken token)
+    {
+        while (!token.IsCancellationRequested)
+        {
+            if (_groundCheck.IsGrounded) _coyoteTimeCounter = _coyoteTime;
+            else _coyoteTimeCounter -= Time.deltaTime;
+
+            if (Input.GetButtonDown("Jump") && _coyoteTimeCounter > 0f)
+            {
+                var velocity = _rb.velocity;
+                velocity.y = _jumpForce;
+                _rb.velocity = velocity;
+                _coyoteTimeCounter = 0f;
+
+                await UniTask.Delay((int)(_delayAfterJump * 1000), 
+                    cancellationToken: destroyCancellationToken);
+            }
+
+            await UniTask.Yield(PlayerLoopTiming.Update, token);
+        }
     }
 
     private void Reset()
     {
         _groundCheck = GetComponentInChildren<GroundCheck>();
+    }
+
+    private void OnDestroy()
+    {
+        _cts?.Cancel();
+        _cts?.Dispose();
     }
 }
