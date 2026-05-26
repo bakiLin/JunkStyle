@@ -246,6 +246,7 @@ MonoBehaviour:
   _groundCheck: {fileID: 1983580003574670580}
   _jumpForce: 2
   _coyoteTime: 0.15
+  _delayAfterJump: 0.3
 --- !u!1 &3601346732149605583
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,8 +658,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 084c01ab381b9da4082c1f84cf70751b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceThreshold: 0.15
-  isGrounded: 1
 --- !u!1 &6010139601786582129
 GameObject:
   m_ObjectHideFlags: 0

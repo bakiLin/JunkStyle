@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using Cysharp.Threading.Tasks;
 
-public class KillFloor : MonoBehaviour
+public class OLDKillFloor : MonoBehaviour
 {
     private AudioManager audioManager;
 
