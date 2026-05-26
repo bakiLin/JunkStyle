@@ -3,43 +3,34 @@ using UnityEngine;
 
 public class FirstPersonMovement : MonoBehaviour
 {
-    public float speed = 5;
+    private Rigidbody _rb;
+    private PlatformRegular _platform;
 
-    [Header("Running")]
-    public bool canRun = true;
+    public float speed = 5;
+    [Header("Running")] public bool canRun = true;
     public bool IsRunning { get; private set; }
     public float runSpeed = 9;
     public KeyCode runningKey = KeyCode.LeftShift;
-
-    Rigidbody rigidbody;
-    /// <summary> Functions to override movement speed. Will use the last added override. </summary>
-    public List<System.Func<float>> speedOverrides = new List<System.Func<float>>();
-
-    private PlatformRegular _platform;
+    public List<System.Func<float>> speedOverrides = new();
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.TryGetComponent(out PlatformRegular platform))
-        {
             _platform = platform;
-        }
     }
 
     private void OnCollisionExit(Collision collision)
     {
         if (collision.transform.TryGetComponent(out PlatformRegular platform))
-        {
             _platform = null;
-        }
     }
 
-    void Awake()
+    private void Awake()
     {
-        // Get the rigidbody on this.
-        rigidbody = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         // Update IsRunning from input.
         IsRunning = canRun && Input.GetKey(runningKey);
@@ -55,11 +46,9 @@ public class FirstPersonMovement : MonoBehaviour
         Vector2 targetVelocity =new Vector2( Input.GetAxis("Horizontal") * targetMovingSpeed, Input.GetAxis("Vertical") * targetMovingSpeed);
 
         // Apply movement.
-        rigidbody.velocity = transform.rotation * new Vector3(targetVelocity.x, rigidbody.velocity.y, targetVelocity.y);
+        _rb.velocity = transform.rotation * new Vector3(targetVelocity.x, _rb.velocity.y, targetVelocity.y);
 
         if (_platform != null)
-        {
-            rigidbody.position += _platform.Delta;
-        }
+            _rb.position += _platform.Delta;
     }
 }

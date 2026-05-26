@@ -10,19 +10,13 @@ public class PlatformRegular : MonoBehaviour
     [SerializeField] private Transform[] _horizontalPoints;
     [SerializeField] private Transform[] _verticalPoints;
 
-    private bool _moveRight;
-    private bool _moveUp;
-    private int _horizontalIndex;
-    private int _verticalIndex;
-    private Vector3 _oldPosition;
-    private Vector3 _newPosition;
-    private float _timeLeft;
-    private float _fullTime;
-
+    private bool _moveRight, _moveUp;
+    private int _horizontalIndex, _verticalIndex;
+    private Vector3 _oldPosition, _newPosition;
+    private float _timeLeft, _fullTime;
     private Rigidbody _rb;
-    private Rigidbody _platform;
 
-    public Vector3 Delta;
+    public Vector3 Delta { get; private set; }
 
     [Inject]
     private void Construct(ISubscriber<ScreenStateChangedMessage> screenStateChanged)
@@ -42,32 +36,22 @@ public class PlatformRegular : MonoBehaviour
     private void FixedUpdate()
     {
         var oldPosition = _rb.position;
-
         _timeLeft -= Time.deltaTime;
         float percent = (_fullTime - _timeLeft) / _fullTime;
-        //transform.position = Vector3.Lerp(_oldPosition, _newPosition, percent);
 
         var position = Vector3.Lerp(_oldPosition, _newPosition, percent);
-
         Delta = position - oldPosition;
-        Delta.y = Mathf.Max(0.01f, Delta.y);
-        Debug.Log(Delta.y);
-        //Delta.y = 0f;
-
+        Delta = new Vector3(Delta.x, 0.01f, Delta.z);
         _rb.MovePosition(position);
 
         if (percent >= 1)
         {
             if (_moveHorizontal)
-            {
                 _horizontalIndex = GetNextIndex(
                     _horizontalIndex, _horizontalPoints.Length, ref _moveRight);
-            }
             else
-            {
                 _verticalIndex = GetNextIndex(
                     _verticalIndex, _verticalPoints.Length, ref _moveUp);
-            }
 
             NextPoint();
         }
@@ -101,25 +85,25 @@ public class PlatformRegular : MonoBehaviour
         _timeLeft = _fullTime;
     }
 
-    private int GetNextIndex(int currentIndex, int length, ref bool direction)
+    private int GetNextIndex(int i, int length, ref bool dir)
     {
-        if (direction)
+        if (dir)
         {
-            if (currentIndex == length - 1)
+            if (i == length - 1)
             {
-                direction = false;
-                return currentIndex - 1;
+                dir = false;
+                return i - 1;
             }
-            return currentIndex + 1;
+            return i + 1;
         }
         else
         {
-            if (currentIndex == 0)
+            if (i == 0)
             {
-                direction = true;
-                return currentIndex + 1;
+                dir = true;
+                return i + 1;
             }
-            return currentIndex - 1;
+            return i - 1;
         }
     }
 }
