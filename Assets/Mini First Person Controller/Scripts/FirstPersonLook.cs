@@ -2,49 +2,39 @@
 
 public class FirstPersonLook : MonoBehaviour
 {
-    [SerializeField]
-    Transform character;
+    [SerializeField] private Transform character;
+    [SerializeField] private Vector2 velocity = new Vector2(-90f, 0f);
+    private Vector2 frameVelocity;
+
     public float sensitivity = 2;
     public float smoothing = 1.5f;
 
-    [SerializeField] Vector2 velocity = new Vector2(-90f, 0f);
-    Vector2 frameVelocity;
-
-
-    void Reset()
+    private void Start()
     {
-        // Get the character from the FirstPersonMovement in parents.
-        character = GetComponentInParent<FirstPersonMovement>().transform;
-    }
-
-    void Start()
-    {
-        // Lock the mouse cursor to the game screen.
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void LateUpdate()
+    private void Reset()
     {
-        // Get smooth velocity.
-        Vector2 mouseDelta = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
-        Vector2 rawFrameVelocity = Vector2.Scale(mouseDelta, Vector2.one * sensitivity);
+        character = GetComponentInParent<FirstPersonMovement>().transform;
+    }
+
+    private void Update()
+    {
+        var mouseDelta = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+        var rawFrameVelocity = Vector2.Scale(mouseDelta, Vector2.one * sensitivity);
         frameVelocity = Vector2.Lerp(frameVelocity, rawFrameVelocity, 1 / smoothing);
         velocity += frameVelocity;
         velocity.y = Mathf.Clamp(velocity.y, -90, 90);
+    }
 
-        // Rotate camera up-down and controller left-right from velocity.
-        //transform.localRotation = Quaternion.AngleAxis(-velocity.y, Vector3.right);
+    private void LateUpdate()
+    {
         character.localRotation = Quaternion.AngleAxis(velocity.x, Vector3.up);
 
-        transform.rotation =
-            character.rotation *
-            Quaternion.AngleAxis(-velocity.y, Vector3.right);
-
-        transform.position =
-            Vector3.Lerp(
-                transform.position,
-                character.position + Vector3.up,
-                20f * Time.deltaTime
-            );
+        var rotation = character.rotation * Quaternion.AngleAxis(-velocity.y, Vector3.right);
+        var position = Vector3.Lerp(transform.position, character.position + Vector3.up,
+                20f * Time.deltaTime);
+        transform.SetPositionAndRotation(position, rotation);
     }
 }
