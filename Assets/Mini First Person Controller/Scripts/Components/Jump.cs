@@ -1,34 +1,41 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 public class Jump : MonoBehaviour
 {
-    Rigidbody rigidbody;
-    public float jumpStrength = 2;
-    public event System.Action Jumped;
+    [SerializeField] private GroundCheck _groundCheck;
+    [SerializeField] private float _jumpForce = 2;
+    [SerializeField] private float _coyoteTime = .2f;
+    [SerializeField] private float _delayAfterJump = .2f;
+    private Rigidbody _rb;
+    private float _coyoteTimeCounter;
+    private bool _canJump = true;
 
-    [SerializeField, Tooltip("Prevents jumping when the transform is in mid-air.")]
-    GroundCheck groundCheck;
-
-
-    void Reset()
+    private void Awake()
     {
-        // Try to get groundCheck.
-        groundCheck = GetComponentInChildren<GroundCheck>();
+        _rb = GetComponent<Rigidbody>();
     }
 
-    void Awake()
+    private void Update()
     {
-        // Get rigidbody.
-        rigidbody = GetComponent<Rigidbody>();
+        if (_groundCheck.IsGrounded) _coyoteTimeCounter = _coyoteTime;
+        else _coyoteTimeCounter -= Time.deltaTime;
+
+        if (Input.GetButtonDown("Jump") && _coyoteTimeCounter > 0f && _canJump)
+            JumpAsync().Forget();
     }
 
-    void LateUpdate()
+    private async UniTask JumpAsync()
     {
-        // Jump when the Jump button is pressed and we are on the ground.
-        if (Input.GetButtonDown("Jump") && (!groundCheck || groundCheck.isGrounded))
-        {
-            rigidbody.AddForce(Vector3.up * 100 * jumpStrength);
-            Jumped?.Invoke();
-        }
+        _canJump = false;
+        _rb.AddForce(_jumpForce * 100 * Vector3.up);
+        _coyoteTimeCounter = 0f;
+        await UniTask.Delay((int)(_delayAfterJump * 1000), cancellationToken: destroyCancellationToken);
+        _canJump = true;
+    }
+
+    private void Reset()
+    {
+        _groundCheck = GetComponentInChildren<GroundCheck>();
     }
 }
