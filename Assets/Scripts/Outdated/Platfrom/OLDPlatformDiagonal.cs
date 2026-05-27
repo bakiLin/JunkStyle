@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlatformDiagonal : OLDPlatform
+public class OLDPlatformDiagonal : OLDPlatform
 {
     protected override void NextPoint()
     {
