@@ -18,6 +18,9 @@ public class MenuFadingManager : MonoBehaviour
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         StartFade().Forget();
     }
 

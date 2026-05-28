@@ -16,7 +16,7 @@ public class MaterialSetter : IDisposable, IStartable
 
     private void HandleChangeMaterialMessage(ChangeMaterialMessage message)
     {
-        var materials = message.Renderer.materials;
+        var materials = message.Renderer.sharedMaterials;
 
         switch (message.Type)
         {
@@ -34,7 +34,7 @@ public class MaterialSetter : IDisposable, IStartable
                 break;
         }
 
-        message.Renderer.materials = materials;
+        message.Renderer.sharedMaterials = materials;
     }
 
     public void Dispose()
