@@ -1,25 +1,24 @@
-﻿using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using MessagePipe;
 using UnityEngine;
 using VContainer;
 
-public class PlatformRegular : MonoBehaviour
+public abstract class PlatformBase : MonoBehaviour
 {
-    [SerializeField] private float _speed;
-    [SerializeField] private bool _moveHorizontal;
-    [SerializeField] private Transform[] _horizontalPoints;
-    [SerializeField] private Transform[] _verticalPoints;
+    public Vector3 Delta { get; protected set; }
 
-    private bool _moveRight, _moveUp;
-    private int _horizontalIndex, _verticalIndex;
-    private Vector3 _oldPosition, _newPosition;
-    private float _timeLeft, _fullTime;
-    private Rigidbody _rb;
-
-    public Vector3 Delta { get; private set; }
+    [SerializeField] protected float _speed;
+    [SerializeField] protected bool _moveHorizontal;
+    [SerializeField] protected Transform[] _horizontalPoints;
+    [SerializeField] protected Transform[] _verticalPoints;
+    protected bool _moveRight, _moveUp;
+    protected int _horizontalIndex, _verticalIndex;
+    protected Vector3 _oldPosition, _newPosition;
+    protected float _timeLeft, _fullTime;
+    protected Rigidbody _rb;
 
     [Inject]
-    private void Construct(ISubscriber<ScreenStateChangedMessage> screenStateChanged)
+    protected void Construct(ISubscriber<ScreenStateChangedMessage> screenStateChanged)
     {
         _rb = GetComponent<Rigidbody>();
 
@@ -28,12 +27,12 @@ public class PlatformRegular : MonoBehaviour
         ).AddTo(destroyCancellationToken);
     }
 
-    private void Start()
+    protected void Start()
     {
         NextPoint();
     }
 
-    private void FixedUpdate()
+    protected void FixedUpdate()
     {
         var oldPosition = _rb.position;
         _timeLeft -= Time.deltaTime;
@@ -47,17 +46,21 @@ public class PlatformRegular : MonoBehaviour
         if (percent >= 1)
         {
             if (_moveHorizontal)
+            {
                 _horizontalIndex = GetNextIndex(
                     _horizontalIndex, _horizontalPoints.Length, ref _moveRight);
+            }
             else
+            {
                 _verticalIndex = GetNextIndex(
                     _verticalIndex, _verticalPoints.Length, ref _moveUp);
+            }
 
             NextPoint();
         }
     }
 
-    private void HandleScreenStateChangedMessage(ScreenStateChangedMessage message)
+    protected void HandleScreenStateChangedMessage(ScreenStateChangedMessage message)
     {
         if (message.PlatformName == gameObject.name)
         {
@@ -66,26 +69,7 @@ public class PlatformRegular : MonoBehaviour
         }
     }
 
-    private void NextPoint()
-    {
-        _oldPosition = transform.position;
-
-        if (_moveHorizontal)
-        {
-            _newPosition = _horizontalPoints[_horizontalIndex].position;
-            _newPosition.y = transform.position.y;
-        }
-        else
-        {
-            _newPosition = transform.position;
-            _newPosition.y = _verticalPoints[_verticalIndex].position.y;
-        }
-
-        _fullTime = Vector3.Distance(_oldPosition, _newPosition) / _speed;
-        _timeLeft = _fullTime;
-    }
-
-    private int GetNextIndex(int i, int length, ref bool dir)
+    protected int GetNextIndex(int i, int length, ref bool dir)
     {
         if (dir)
         {
@@ -106,4 +90,6 @@ public class PlatformRegular : MonoBehaviour
             return i - 1;
         }
     }
+
+    protected abstract void NextPoint();
 }
