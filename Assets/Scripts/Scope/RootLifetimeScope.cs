@@ -7,6 +7,7 @@ public class RootLifetimeScope : LifetimeScope
 {
     [SerializeField] private RemoteSettingsSO _remoteSettings;
     [SerializeField] private MaterialSettingsSO _materialSettings;
+    [SerializeField] private UISettingsSO _uiSettings;
 
     protected override void Configure(IContainerBuilder builder)
     {
@@ -18,6 +19,7 @@ public class RootLifetimeScope : LifetimeScope
 
         builder.RegisterInstance(_remoteSettings);
         builder.RegisterInstance(_materialSettings);
+        builder.RegisterInstance(_uiSettings);
     }
 
     private void RegisterMessagePipe(IContainerBuilder builder)
