@@ -13,9 +13,9 @@ public class MiddleCheckpoint : MonoBehaviour
         _newCheckpoint = newCheckpoint;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             _newCheckpoint.Publish(new NewCheckpointMessage(_checkpoint));
             Destroy(this);

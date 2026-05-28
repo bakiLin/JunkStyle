@@ -7,7 +7,8 @@ using VContainer;
 public class FirstPersonLook : MonoBehaviour
 {
     [SerializeField] private Transform character;
-    [SerializeField] private Vector2 velocity = new Vector2(-90f, 0f);
+    [SerializeField] private Vector2 _rotation;
+    private Vector2 _velocity;
     private Vector2 frameVelocity;
     private CancellationTokenSource _cts = new();
 
@@ -15,14 +16,14 @@ public class FirstPersonLook : MonoBehaviour
     public float smoothing = 1.5f;
 
     [Inject]
-    private void Construct(ISubscriber<PlayerKilledMessage> playerKilled,
+    private void Construct(ISubscriber<StopPlayerMessage> playerKilled,
         ISubscriber<ResumePlayerMessage> resumePlayer)
     {
         DisposableBag.Create(
             playerKilled.Subscribe(_ => StopRotation()),
             resumePlayer.Subscribe(_ => {
                 _cts = new();
-                velocity = new Vector2(-90f, 0f);
+                _velocity = _rotation;
                 RotateAsync(_cts.Token).Forget();
             })
         ).AddTo(destroyCancellationToken);
@@ -30,6 +31,7 @@ public class FirstPersonLook : MonoBehaviour
 
     private void Start()
     {
+        _velocity = _rotation;
         Cursor.lockState = CursorLockMode.Locked;
         RotateAsync(_cts.Token).Forget();
     }
@@ -46,9 +48,9 @@ public class FirstPersonLook : MonoBehaviour
             var mouseDelta = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
             var rawFrameVelocity = Vector2.Scale(mouseDelta, Vector2.one * sensitivity);
             frameVelocity = Vector2.Lerp(frameVelocity, rawFrameVelocity, 1 / smoothing);
-            velocity += frameVelocity;
-            velocity.y = Mathf.Clamp(velocity.y, -90, 90);
-            character.localRotation = Quaternion.AngleAxis(velocity.x, Vector3.up);
+            _velocity += frameVelocity;
+            _velocity.y = Mathf.Clamp(_velocity.y, -90, 90);
+            character.localRotation = Quaternion.AngleAxis(_velocity.x, Vector3.up);
 
             await UniTask.Yield(PlayerLoopTiming.Update, token);
         }
@@ -56,7 +58,7 @@ public class FirstPersonLook : MonoBehaviour
 
     private void LateUpdate()
     {
-        var rotation = character.rotation * Quaternion.AngleAxis(-velocity.y, Vector3.right);
+        var rotation = character.rotation * Quaternion.AngleAxis(-_velocity.y, Vector3.right);
         var position = Vector3.Lerp(transform.position, character.position + Vector3.up,
                 20f * Time.deltaTime);
         transform.SetPositionAndRotation(position, rotation);

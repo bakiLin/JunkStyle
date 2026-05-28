@@ -4,11 +4,14 @@ using VContainer;
 
 public class KillFloor : MonoBehaviour
 {
+    private IPublisher<StopPlayerMessage> _stopPlayer;
     private IPublisher<PlayerKilledMessage> _playerKilled;
 
     [Inject]
-    private void Construct(IPublisher<PlayerKilledMessage> playerKilled)
+    private void Construct(IPublisher<StopPlayerMessage> stopPlayer,
+        IPublisher<PlayerKilledMessage> playerKilled)
     {
+        _stopPlayer = stopPlayer;
         _playerKilled = playerKilled;
     }
 
@@ -16,6 +19,7 @@ public class KillFloor : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
+            _stopPlayer.Publish(new StopPlayerMessage());
             _playerKilled.Publish(new PlayerKilledMessage());
         }
     }

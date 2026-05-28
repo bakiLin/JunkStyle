@@ -24,8 +24,8 @@ public class PlayerRaycaster : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E) && hitCount != 0)
         {
-            var remote = _hits[0].collider.GetComponent<IInteractable>();
-            remote.Interact();
+            var interactable = _hits[0].collider.GetComponent<IInteractable>();
+            interactable.Interact();
         }
     }
 }

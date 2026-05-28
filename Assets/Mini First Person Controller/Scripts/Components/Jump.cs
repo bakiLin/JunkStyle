@@ -15,7 +15,7 @@ public class Jump : MonoBehaviour
     private CancellationTokenSource _cts = new();
 
     [Inject]
-    private void Construct(ISubscriber<PlayerKilledMessage> playerKilled,
+    private void Construct(ISubscriber<StopPlayerMessage> playerKilled,
         ISubscriber<ResumePlayerMessage> resumePlayer)
     {
         _rb = GetComponent<Rigidbody>();

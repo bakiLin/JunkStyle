@@ -8,7 +8,7 @@ using VContainer;
 public class FirstPersonMovement : MonoBehaviour
 {
     private Rigidbody _rb;
-    private PlatformRegular _platform;
+    private PlatformBase _platform;
     private CancellationTokenSource _cts = new();
 
     public float speed = 5;
@@ -19,7 +19,7 @@ public class FirstPersonMovement : MonoBehaviour
     public List<System.Func<float>> speedOverrides = new();
 
     [Inject]
-    private void Construct(ISubscriber<PlayerKilledMessage> playerKilled,
+    private void Construct(ISubscriber<StopPlayerMessage> playerKilled,
         ISubscriber<ResumePlayerMessage> resumePlayer)
     {
         _rb = GetComponent<Rigidbody>();
@@ -48,13 +48,13 @@ public class FirstPersonMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.TryGetComponent(out PlatformRegular platform))
+        if (collision.transform.TryGetComponent(out PlatformBase platform))
             _platform = platform;
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.transform.TryGetComponent(out PlatformRegular platform))
+        if (collision.transform.TryGetComponent(out PlatformBase platform))
             _platform = null;
     }
 
