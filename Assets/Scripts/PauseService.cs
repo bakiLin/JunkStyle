@@ -9,11 +9,13 @@ public class PauseService : MonoBehaviour
     private CanvasGroup _canvasGroup;
     private bool _isPaused;
     private CancellationTokenSource _cts = new();
+    private IPublisher<PauseMessage> _pauseMessage;
 
     [Inject]
-    private void Construct(ISubscriber<ResumePlayerMessage> resumePlayer, 
-        ISubscriber<PlayerKilledMessage> playerKilled)
+    private void Construct(IPublisher<PauseMessage> pauseMessage,
+        ISubscriber<ResumePlayerMessage> resumePlayer, ISubscriber<PlayerKilledMessage> playerKilled)
     {
+        _pauseMessage = pauseMessage;
         _canvasGroup = GetComponent<CanvasGroup>();
 
         DisposableBag.Create(
@@ -50,8 +52,10 @@ public class PauseService : MonoBehaviour
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
                 }
-            }
 
+                _pauseMessage.Publish(new PauseMessage(_isPaused));
+            }
+            
             await UniTask.Yield(PlayerLoopTiming.Update, token);
         }
     }
@@ -63,6 +67,7 @@ public class PauseService : MonoBehaviour
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        _pauseMessage.Publish(new PauseMessage(_isPaused));
     }
 
     private void OnDestroy()

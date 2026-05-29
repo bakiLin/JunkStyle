@@ -17,11 +17,20 @@ public class FirstPersonLook : MonoBehaviour
 
     [Inject]
     private void Construct(ISubscriber<StopPlayerMessage> playerKilled,
-        ISubscriber<ResumePlayerMessage> resumePlayer, ISubscriber<StopPlayerMessage> stopPlayer)
+        ISubscriber<ResumePlayerMessage> resumePlayer, ISubscriber<StopPlayerMessage> stopPlayer,
+        ISubscriber<PauseMessage> pause)
     {
         DisposableBag.Create(
             playerKilled.Subscribe(_ => StopRotation()),
             stopPlayer.Subscribe(_ => StopRotation()),
+            pause.Subscribe(x => {
+                if (x.Pause) StopRotation();
+                else
+                {
+                    _cts = new();
+                    RotateAsync(_cts.Token).Forget();
+                }
+            }),
             resumePlayer.Subscribe(x => {
                 _cts = new();
                 if (x.RotateToDefaultValue) _velocity = _rotation;
