@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyclops' Treasure</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Перенесли script сюда, убрали лишний блок <style> -->
+    <script>
+        function openFullscreen() {
+            const iframe = document.getElementById("gameFrame");
+            if (iframe.requestFullscreen) iframe.requestFullscreen();
+            else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
+            else if (iframe.msRequestFullscreen) iframe.msRequestFullscreen();
+        }
+    </script>
+</head>
+<script>
+
+function openFullscreen() {
+
+    const iframe = document.getElementById("gameFrame");
+
+    if (iframe.requestFullscreen) {
+        iframe.requestFullscreen();
+    }
+    else if (iframe.webkitRequestFullscreen) {
+        iframe.webkitRequestFullscreen();
+    }
+    else if (iframe.msRequestFullscreen) {
+        iframe.msRequestFullscreen();
+    }
+}
+
+</script>
+<body>
+
+    <div class="container">
+
+        <!-- HERO SECTION -->
+
+        <header class="hero">
+            <img
+                src="banner.jpg"
+                alt="Game Banner"
+                class="banner">
+
+            <h1 class="game-title">
+                CYCLOPS' TREASURE
+            </h1>
+
+            <p class="subtitle">
+                Created for LUDUM DARE 58
+            </p>    
+
+            <div class="buttons">
+
+                <a href="#play" class="button primary">
+                    Play
+                </a>
+
+                <a
+                    href="https://github.com/bakiLin/LudumDare58"
+                    target="_blank"
+                    class="button secondary">
+                    GitHub Repository
+                </a>
+
+            </div>
+
+        </header>
+
+        <!-- ABOUT -->
+
+        <section class="section">
+
+            <h2>ABOUT</h2>
+
+            <p>
+                A 2D action-puzzle game where you play as a gnome 
+                on a quest to find the legendary Cyclops' Ring. 
+                Navigating dark, trap-filled dungeons with limited 
+                visibility, you must outsmart monsters and find key 
+                items to unlock the way to the next levels. 
+            </p>
+
+        </section>
+
+        <!-- TEAM -->
+
+        <section class="section">
+
+            <h2>TEAM</h2>
+
+            <ul class="feature-list">
+                <li><b>Lin</b> - Lead Programmer</li>
+                <li><b>Mark Han</b> - 2D Art / Animation / UI / Illustration</li>
+                <li><b>Mishka PO</b> - 2D Art / Background</li>
+                <li><b>Igor Vasilev</b> - Music / SFX</li>
+            </ul>
+
+        </section>
+
+        <!-- CONTROLS -->
+
+        <section class="section">
+
+            <h2>CONTROLS</h2>
+
+            <ul class="controls-list">
+                <li><b>WASD</b> - Movement</li>
+                <li><b>E</b> - Interact</li>
+                <li><b>1, 2, 3, 4, 5</b> - Drop Item</li>
+            </ul>
+
+        </section>
+
+        <!-- PLAY SECTION -->
+
+        <section class="section" id="play">
+
+            <h2>PLAY IN BROWSER</h2>
+
+        <div class="game-wrapper">
+
+            <button class="fullscreen-btn" onclick="openFullscreen()">
+                Fullscreen
+            </button>
+
+            <div class="game-frame">
+
+                <iframe
+                    id="gameFrame"
+                    src="./game/"
+                    frameborder="0"
+                    allowfullscreen
+                    allow="fullscreen">
+                </iframe>
+
+            </div>
+
+        </div>
+
+        </section>
+
+        <!-- FOOTER -->
+
+        <footer class="footer">
+
+            <p>
+                Developed with Unity and deployed using GitHub Pages.
+            </p>
+
+        </footer>
+
+    </div>
+    
+</body>
+
+</html>
