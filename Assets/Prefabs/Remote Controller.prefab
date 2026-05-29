@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc9348d3f40f09b48b46c668ee94af0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _switchSound: {fileID: 11400000, guid: faea74e0f417a9d49b6092aeec768c97, type: 2}
   _connectedNodes: []
 --- !u!114 &13460599707674933
 MonoBehaviour:

@@ -120,6 +120,7 @@ MonoBehaviour:
   _jumpForce: 3.5
   _coyoteTime: 0.15
   _delayAfterJump: 0.3
+  _jumpSound: {fileID: 11400000, guid: bb97971b02e053c4d870d801aea1801a, type: 2}
 --- !u!114 &7712097510061926270
 MonoBehaviour:
   m_ObjectHideFlags: 0

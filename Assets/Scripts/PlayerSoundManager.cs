@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using MessagePipe;
 using UnityEngine;
 using VContainer;
 
@@ -13,9 +14,14 @@ public class PlayerSoundManager : MonoBehaviour
     private bool _emittingStepSound;
 
     [Inject]
-    private void Construct(ISoundManager soundManager)
+    private void Construct(ISoundManager soundManager, ISubscriber<PlayerJumpMessage> playerJump)
     {
         _soundManager = soundManager;
+
+        DisposableBag.Create(
+            playerJump.Subscribe(x => _soundManager.Get()
+                .Play(x.SoundData, transform.position, destroyCancellationToken).Forget())
+        ).AddTo(destroyCancellationToken);
     }
 
     private void Update()

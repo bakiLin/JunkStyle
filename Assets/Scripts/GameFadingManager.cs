@@ -44,7 +44,7 @@ public class GameFadingManager : MonoBehaviour
         await ImageFader.FadeImage(_faderImage, 1f, _settings.FadeDuration, destroyCancellationToken);
         _respawnPlayer.Publish(new RespawnPlayerMessage());
         await UniTask.Delay((int)(_settings.FadeDelay * 1000), cancellationToken: destroyCancellationToken);
-        _resumePlayer.Publish(new ResumePlayerMessage());
+        _resumePlayer.Publish(new ResumePlayerMessage(true));
         await ImageFader.FadeImage(_faderImage, 0f, _settings.FadeDuration, destroyCancellationToken);
     }
 

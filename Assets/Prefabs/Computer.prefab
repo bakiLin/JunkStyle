@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _nextLevel: 2
+  _interactSound: {fileID: 11400000, guid: faea74e0f417a9d49b6092aeec768c97, type: 2}
 --- !u!114 &9136734257698638841
 MonoBehaviour:
   m_ObjectHideFlags: 0
