@@ -9,6 +9,6 @@ public static class ImageFader
         float duration, CancellationToken token)
     {
         Tween tween = image.DOFade(targetAlpha, duration).SetUpdate(true);
-        await tween.ToUniTask(cancellationToken: token);
+        await tween.AsyncWaitForCompletion();
     }
 }
