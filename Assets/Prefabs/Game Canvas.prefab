@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2175575905758067683}
   - component: {fileID: 1291496844633658569}
   - component: {fileID: 819024786183173279}
+  - component: {fileID: 715051432431438140}
   m_Layer: 5
   m_Name: Exit (Button)
   m_TagString: Untagged
@@ -133,6 +134,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &715051432431438140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375615960011059773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f38d9d8b31f19a74087acc414d5bd4a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buttonSound: {fileID: 11400000, guid: 2d905615fe782f74ba370cf7253d8bf4, type: 2}
 --- !u!1 &4107656088931532738
 GameObject:
   m_ObjectHideFlags: 0
@@ -783,6 +797,7 @@ GameObject:
   - component: {fileID: 178135980572743264}
   - component: {fileID: 2236289075273812071}
   - component: {fileID: 1052084743566304293}
+  - component: {fileID: 2625084018724322797}
   m_Layer: 5
   m_Name: Resume (Button)
   m_TagString: Untagged
@@ -904,3 +919,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2625084018724322797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8975020441641372647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f38d9d8b31f19a74087acc414d5bd4a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buttonSound: {fileID: 11400000, guid: 2d905615fe782f74ba370cf7253d8bf4, type: 2}
