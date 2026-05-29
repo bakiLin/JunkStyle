@@ -8,6 +8,7 @@ public class RootLifetimeScope : LifetimeScope
     [SerializeField] private RemoteSettingsSO _remoteSettings;
     [SerializeField] private MaterialSettingsSO _materialSettings;
     [SerializeField] private UISettingsSO _uiSettings;
+    [SerializeField] private SoundManager _soundManager;
 
     protected override void Configure(IContainerBuilder builder)
     {
@@ -20,6 +21,7 @@ public class RootLifetimeScope : LifetimeScope
         builder.RegisterInstance(_remoteSettings);
         builder.RegisterInstance(_materialSettings);
         builder.RegisterInstance(_uiSettings);
+        builder.RegisterInstance<ISoundManager>(_soundManager);
     }
 
     private void RegisterMessagePipe(IContainerBuilder builder)

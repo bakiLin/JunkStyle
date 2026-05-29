@@ -7,10 +7,10 @@ using VContainer;
 
 public class FirstPersonMovement : MonoBehaviour
 {
-    private Rigidbody _rb;
     private PlatformBase _platform;
     private CancellationTokenSource _cts = new();
 
+    public Rigidbody Rb { get; private set; }
     public float speed = 5;
     [Header("Running")] public bool canRun = true;
     public bool IsRunning { get; private set; }
@@ -22,13 +22,13 @@ public class FirstPersonMovement : MonoBehaviour
     private void Construct(ISubscriber<StopPlayerMessage> playerKilled,
         ISubscriber<ResumePlayerMessage> resumePlayer)
     {
-        _rb = GetComponent<Rigidbody>();
+        Rb = GetComponent<Rigidbody>();
 
         DisposableBag.Create(
             playerKilled.Subscribe(_ => StopMovement()),
             resumePlayer.Subscribe(_ => {
                 _cts = new();
-                _rb.isKinematic = false;
+                Rb.isKinematic = false;
                 MovementAsync(_cts.Token).Forget();
             })
         ).AddTo(destroyCancellationToken);
@@ -41,8 +41,8 @@ public class FirstPersonMovement : MonoBehaviour
 
     private void StopMovement()
     {
-        _rb.velocity = Vector3.zero;
-        _rb.isKinematic = true;
+        Rb.velocity = Vector3.zero;
+        Rb.isKinematic = true;
         _cts?.Cancel();
     }
 
@@ -69,10 +69,10 @@ public class FirstPersonMovement : MonoBehaviour
                 targetMovingSpeed = speedOverrides[speedOverrides.Count - 1]();
 
             Vector2 targetVelocity = new Vector2(Input.GetAxis("Horizontal") * targetMovingSpeed, Input.GetAxis("Vertical") * targetMovingSpeed);
-            _rb.velocity = transform.rotation * new Vector3(targetVelocity.x, _rb.velocity.y, targetVelocity.y);
+            Rb.velocity = transform.rotation * new Vector3(targetVelocity.x, Rb.velocity.y, targetVelocity.y);
 
             if (_platform != null)
-                _rb.position += _platform.Delta;
+                Rb.position += _platform.Delta;
 
             await UniTask.Yield(PlayerLoopTiming.FixedUpdate, token);
         }
