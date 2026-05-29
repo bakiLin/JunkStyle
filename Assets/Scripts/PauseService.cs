@@ -10,12 +10,17 @@ public class PauseService : MonoBehaviour
     private bool _isPaused;
     private CancellationTokenSource _cts = new();
     private IPublisher<PauseMessage> _pauseMessage;
+    private IPublisher<NextSceneMessage> _nextScene;
+    private IPublisher<StopPlayerMessage> _stopPlayer;
 
     [Inject]
     private void Construct(IPublisher<PauseMessage> pauseMessage,
-        ISubscriber<ResumePlayerMessage> resumePlayer, ISubscriber<PlayerKilledMessage> playerKilled)
+        ISubscriber<ResumePlayerMessage> resumePlayer, ISubscriber<PlayerKilledMessage> playerKilled,
+        IPublisher<NextSceneMessage> nextScene, IPublisher<StopPlayerMessage> stopPlayer)
     {
         _pauseMessage = pauseMessage;
+        _nextScene = nextScene;
+        _stopPlayer = stopPlayer;
         _canvasGroup = GetComponent<CanvasGroup>();
 
         DisposableBag.Create(
@@ -70,8 +75,17 @@ public class PauseService : MonoBehaviour
         _pauseMessage.Publish(new PauseMessage(_isPaused));
     }
 
+    public void GoToMenu()
+    {
+        _canvasGroup.alpha = 0f;
+        _stopPlayer.Publish(new StopPlayerMessage());
+        _nextScene.Publish(new NextSceneMessage(0));
+    }
+
     private void OnDestroy()
     {
         Time.timeScale = 1f;
+        _cts?.Cancel();
+        _cts?.Dispose();
     }
 }
