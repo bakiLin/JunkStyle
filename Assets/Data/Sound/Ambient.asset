@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Clip>k__BackingField:
   - {fileID: 8300000, guid: 46563eccb7d678f4da08c8051faf8365, type: 3}
-  <Mixer>k__BackingField: {fileID: 0}
-  <Loop>k__BackingField: 0
+  <Mixer>k__BackingField: {fileID: 4160061777758075084, guid: 633e49d4af0ddee49ac923c5f1827281, type: 2}
+  <Loop>k__BackingField: 1
   <RandomPitch>k__BackingField: 0
   <SpatialBlend>k__BackingField: 0
   <Spread>k__BackingField: 0
