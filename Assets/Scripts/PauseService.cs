@@ -41,7 +41,7 @@ public class PauseService : MonoBehaviour
     {
         while (!token.IsCancellationRequested)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.P))
             {
                 _isPaused = !_isPaused;
                 _canvasGroup.alpha = _isPaused ? 1f : 0f;
