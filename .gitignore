@@ -39,15 +39,15 @@
 # =========================
 
 !Assets/
-!Assets/_Scripts/
-!Assets/_Scripts/**
+!Assets/Scripts/
+!Assets/Scripts/**
 
 # =========================
 # OPTIONAL UNITY META FILES
 # =========================
 
-!Assets/_Scripts.meta
-!Assets/_Scripts/**/*.meta
+!Assets/Scripts.meta
+!Assets/Scripts/**/*.meta
 !Packages/*.meta
 !docs/**/*.meta
 
