@@ -31,4 +31,4 @@ This repository contains gameplay and architecture code only.
 Art assets, scenes, and third-party content were excluded
 
 ## Links
-- [Play WebGL](https://bakilin.github.io/JunkStyle/)
+- [Play WebGL](https://b4kilin.itch.io/into-the-mainframe)
